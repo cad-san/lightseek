@@ -1,3 +1,6 @@
 [submodule "cpputest"]
 	path = cpputest
 	url = git://github.com/cpputest/cpputest.git
+[submodule "subsumption"]
+	path = subsumption
+	url = git://github.com/cad-san/subsumption.git

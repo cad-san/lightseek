@@ -7,7 +7,7 @@ clean:
 	else make cleanRelease; \
 	fi
 
-codeCppUTest: CppUTest CppUTestExt
+codeCppUTest: CppUTest CppUTestExt subsumption
 	make -i -f scripts/MakefileCppUTest.mk
 
 cleanCodeCppUTest:
@@ -17,6 +17,8 @@ CppUTest: cpputest/lib/libCppUTest.a
 
 CppUTestExt: cpputest/lib/libCppUTestExt.a
 
+subsumption: subsumption/lib/libsubsumption.a
+
 cpputest/lib/libCppUTest.a:
 	pwd
 	make -i -C cpputest -f Makefile_using_MakefileWorker
@@ -24,7 +26,10 @@ cpputest/lib/libCppUTest.a:
 cpputest/lib/libCppUTestExt.a:
 	make -i -C cpputest -f Makefile_using_MakefileWorker extensions
 
-release: clean
+subsumption/lib/libsubsumption.a:
+	make -i -C subsumption release
+
+release: clean subsumption
 	make -i -f scripts/MakefileRelease.mk
 
 cleanRelease:
