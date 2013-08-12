@@ -10,12 +10,15 @@ SUBSUMPTION_DIR = $(PROJECT_HOME_DIR)/subsumption
 
 SRC_DIRS = \
 	$(PROJECT_HOME_DIR)/src\
+	$(PROJECT_HOME_DIR)/src/device\
 
 TEST_SRC_DIRS = \
 	$(PROJECT_HOME_DIR)/tests\
+	$(PROJECT_HOME_DIR)/tests/device\
 
 INC_DIRS = \
 	$(PROJECT_HOME_DIR)/include\
+	$(PROJECT_HOME_DIR)/include/device\
 	$(PROJECT_HOME_DIR)/mocks\
 	$(SUBSUMPTION_DIR)/include/agent\
 	$(SUBSUMPTION_DIR)/include/environment\
@@ -28,3 +31,4 @@ INCLUDE_DIRS = \
 
 MOCKS_SRC_DIRS = \
 	$(PROJECT_HOME_DIR)/mocks\
+	$(PROJECT_HOME_DIR)/mocks/device\
