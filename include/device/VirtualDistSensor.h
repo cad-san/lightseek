@@ -9,7 +9,10 @@ public:
     VirtualDistSensor();
     virtual ~VirtualDistSensor();
 
-    int getDistance() const = 0;
+    void init();
+    void step();
+
+    int getDistance() const;
 };
 
 #endif
