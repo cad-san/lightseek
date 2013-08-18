@@ -1,25 +1,49 @@
 #include "CppUTest/TestHarness.h"
 
+#include "Robot.h"
+#include "MockWorld.h"
 #include "VirtualDistSensor.h"
 
 TEST_GROUP(VirtualDistSensor)
 {
+    MockWorldPtr worldPtr;
+    RobotPtr robotPtr;
     VirtualDistSensor* sensor;
 
     void setup()
     {
-        sensor = new VirtualDistSensor();
+        worldPtr = MockWorldPtr(new MockWorld());
+        robotPtr = RobotPtr(new Robot(worldPtr));
+        sensor = new VirtualDistSensor(robotPtr);
+
+        sensor->init();
     }
 
     void teardown()
     {
+        mock().clear();
         delete sensor;
     }
 };
 
 TEST(VirtualDistSensor, Init)
 {
-    sensor->init();
-
     LONGS_EQUAL(VirtualDistSensor::INVALID_DISTANCE, sensor->getDistance());
+}
+
+TEST(VirtualDistSensor, Step)
+{
+    // Robot初期化
+    robotPtr->setPosition(50, 100);
+    robotPtr->setAngle(1.0);
+
+    // MockWorldを設定
+    worldPtr->setExpectionOfGetDistance(50, 100, 1.0);
+    worldPtr->setDummyDistance(150);
+
+    // 処理を実行
+    sensor->step();
+    mock().checkExpectations();
+
+    LONGS_EQUAL(150, sensor->getDistance());
 }

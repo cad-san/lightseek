@@ -28,4 +28,6 @@ public:
     void getAngle(double* angle) const;
 };
 
+typedef boost::shared_ptr<Robot> RobotPtr;
+
 #endif
