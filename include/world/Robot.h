@@ -21,6 +21,9 @@ public:
 
     int getDistance() const;
 
+    bool setPosition(const int& x, const int& y);
+    bool setAngle(const double& angle);
+
     void getPosition(int* x, int* y) const;
     void getAngle(double* angle) const;
 };

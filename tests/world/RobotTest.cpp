@@ -32,3 +32,19 @@ TEST(Robot, Init)
     robot->getAngle(&angle);
     DOUBLES_EQUAL(0.0, angle, 0.0);
 }
+
+TEST(Robot, SetPosition)
+{
+    int x, y;
+    double angle;
+
+    robot->setPosition(50, 100);
+    robot->setAngle(1.0);
+
+    robot->getPosition(&x,&y);
+    LONGS_EQUAL( 50, x);
+    LONGS_EQUAL(100, y);
+
+    robot->getAngle(&angle);
+    DOUBLES_EQUAL(1.0, angle, 0.0);
+}

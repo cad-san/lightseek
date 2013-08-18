@@ -36,3 +36,18 @@ void Robot::getAngle(double* angle) const
 
     *angle = this->angle;
 }
+
+bool Robot::setPosition(const int& x, const int& y)
+{
+    this->x = x;
+    this->y = y;
+
+    return true;
+}
+
+bool Robot::setAngle(const double& angle)
+{
+    this->angle = angle;
+
+    return true;
+}
