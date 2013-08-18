@@ -1,4 +1,5 @@
 #include "CppUTest/TestHarness.h"
+#include "CppUTestExt/MockSupport.h"
 
 #include "Robot.h"
 #include "MockWorld.h"
@@ -16,6 +17,7 @@ TEST_GROUP(Robot)
 
     void teardown()
     {
+        mock().clear();
         delete robot;
     }
 };
@@ -47,4 +49,16 @@ TEST(Robot, SetPosition)
 
     robot->getAngle(&angle);
     DOUBLES_EQUAL(1.0, angle, 0.0);
+}
+
+TEST(Robot, GetDistance)
+{
+    robot->setPosition(50, 100);
+    robot->setAngle(1.0);
+
+    worldPtr->setExpectionOfGetDistance(50, 100, 1.0);
+    worldPtr->setDummyDistance(100);
+
+    LONGS_EQUAL(100, robot->getDistance());
+    mock().checkExpectations();
 }
