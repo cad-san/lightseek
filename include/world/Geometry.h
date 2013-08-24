@@ -9,7 +9,8 @@ typedef double type;
 class Point : public std::complex<type>
 {
 public:
-    Point( const type& x, const type& y);
+    Point( const type& x, const type& y );
+    Point( const std::complex<type>& super );
     ~Point();
 
     type x() const;
@@ -27,12 +28,20 @@ public:
           const type& x_e, const type& y_e );
     Line( const Point& p_s, const Point& p_e );
 
+    Point s() const;
+    Point e() const;
+
     type length(void) const;
 };
 
 type dot(const Point& a, const Point& b);
 type cross(const Point& a, const Point& b);
 type distance(const Point& a, const Point& b);
+
+bool intersects_s(const Line& a, const Line& b);
+Point intersection_s(const Line& a, const Line& b);
+bool intersects_l(const Line& a, const Line& b);
+Point intersection_l(const Line& a, const Line& b);
 }
 
 #endif
