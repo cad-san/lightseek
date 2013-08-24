@@ -17,6 +17,19 @@ public:
 
 };
 
+class Line
+{
+private:
+    Point p_s;
+    Point p_e;
+public:
+    Line( const type& x_s, const type& y_s,
+          const type& x_e, const type& y_e );
+    Line( const Point& p_s, const Point& p_e );
+
+    type length(void) const;
+};
+
 type dot(const Point& a, const Point& b);
 type cross(const Point& a, const Point& b);
 type distance(const Point& a, const Point& b);
