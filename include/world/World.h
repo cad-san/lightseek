@@ -4,6 +4,7 @@
 #include <vector>
 #include <boost/shared_ptr.hpp>
 
+#include "Geometry.h"
 #include "Obstacle.h"
 
 class World
@@ -14,6 +15,8 @@ private:
 
     std::vector< ObstaclePtr > obstacles;
 
+    Geo::Line getEdge(int index) const;
+
 public:
     static const int INVALID_COORD = -1;
     static const int INVALID_DISTANCE = -1;
@@ -23,6 +26,8 @@ public:
     virtual ~World();
 
     virtual int getDistance(int x, int y, double angle) const;
+    virtual int getDistToEdge(int x, int y, double angle) const;
+
     virtual bool isValidPosition(int x, int y) const;
 
     bool addObstacle(const ObstaclePtr& obstacle);

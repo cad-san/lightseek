@@ -51,9 +51,43 @@ bool World::isObstacleArea(int x, int y) const
     return false;
 }
 
+Geo::Line World::getEdge(int index) const
+{
+    Geo::Line edges[4];
+
+    edges[0] = Geo::Line(width-1,        0, width-1, height-1 );     // 左
+    edges[1] = Geo::Line(      0, height-1, width-1, height-1 );     // 下
+    edges[2] = Geo::Line(      0,        0,       0, height-1 );     // 右
+    edges[3] = Geo::Line(      0,        0, width-1,        0 );     // 上
+
+    return edges[index % 4];
+}
+
+int World::getDistToEdge(int x, int y, double angle) const
+{
+    if(!isValidPosition(x, y))
+        return INVALID_DISTANCE;
+
+    Geo::Point src = Geo::Point(x, y);
+    Geo::Line edge = getEdge( static_cast<int>(angle/90) );
+    Geo::Line line = Geo::Line( src, 1.0, Geo::convert_radian(angle) );
+
+    if(!Geo::intersects_l(edge, line))
+        return INVALID_DISTANCE;
+
+    Geo::Point tgt = Geo::intersection_l(edge, line);
+
+    return Geo::distance(src, tgt);
+}
+
 int World::getDistance(int x, int y, double angle) const
 {
-    return INVALID_DISTANCE;
+    if(!isValidPosition(x, y))
+        return INVALID_DISTANCE;
+
+    int min_dist = getDistToEdge(x, y, angle);
+
+    return min_dist;
 }
 
 bool World::isValidPosition(int x, int y) const

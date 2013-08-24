@@ -31,6 +31,10 @@ type Point::y() const
     return this->imag();
 }
 
+Line::Line() : p_s(0, 0), p_e(0, 0)
+{
+}
+
 Line::Line( const type& x_s, const type& y_s,
             const type& x_e, const type& y_e )
     : p_s(x_s, y_s), p_e(x_e, y_e)
@@ -39,6 +43,11 @@ Line::Line( const type& x_s, const type& y_s,
 
 Line::Line( const Point& p_s, const Point& p_e )
     : p_s(p_s), p_e(p_e)
+{
+}
+
+Line::Line( const Point& p_s, const type& length, const type& radian)
+    : p_s(p_s), p_e(p_s + std::polar(length, radian))
 {
 }
 
@@ -55,6 +64,16 @@ Point Line::e() const
 type Line::length() const
 {
     return Geo::distance(this->p_s, this->p_e);
+}
+
+type convert_radian(const type& degree)
+{
+    return degree * PI / 180.0;
+}
+
+type convert_degree(const type& radian)
+{
+    return radian * 180 / PI;
 }
 
 type dot(const Point& a, const Point& b)

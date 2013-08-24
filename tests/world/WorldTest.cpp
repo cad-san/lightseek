@@ -34,3 +34,9 @@ TEST(World, AddObstacle)
     CHECK(world->addObstacle(obstacle));
     CHECK(world->isObstacleArea(25,25));
 }
+
+TEST(World, GetDistanceNoObsacle)
+{
+    int distance = world->getDistance(100, 100, 0);
+    LONGS_EQUAL(99, distance);
+}
