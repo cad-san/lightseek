@@ -17,6 +17,7 @@ TEST_GROUP(World)
 
     void teardown()
     {
+        mock().clear();
         delete world;
     }
 };
@@ -39,4 +40,26 @@ TEST(World, GetDistanceNoObsacle)
 {
     int distance = world->getDistance(100, 100, 0);
     LONGS_EQUAL(99, distance);
+}
+
+TEST(World, GetDistance)
+{
+    MockObstaclePtr obstacle = MockObstaclePtr(new MockObstacle(100, 0, 50, 50));
+
+    obstacle->setExpectionOfGetDistance(0, 0, 0);
+    obstacle->setDummyDistance(100);
+
+    CHECK(world->addObstacle(obstacle));
+    LONGS_EQUAL(100, world->getDistance(0, 0, 0));
+}
+
+TEST(World, GetDistanceNoIntersection)
+{
+    MockObstaclePtr obstacle = MockObstaclePtr(new MockObstacle(0, 0, 50, 50));
+
+    obstacle->setExpectionOfGetDistance(100, 100, 0);
+    obstacle->setDummyDistance(World::INVALID_DISTANCE);
+
+    CHECK(world->addObstacle(obstacle));
+    LONGS_EQUAL(99, world->getDistance(100, 100, 0));
 }

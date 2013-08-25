@@ -2,6 +2,7 @@
 #define D_OBSTACLE_H
 
 #include <boost/shared_ptr.hpp>
+#include "World.h"
 
 class Obstacle
 {
@@ -40,6 +41,7 @@ public:
     }
 
     virtual bool isInArea(int x, int y) const = 0;
+    virtual int getDistance(int x, int y, double angle) const = 0;
 };
 
 typedef boost::shared_ptr<Obstacle> ObstaclePtr;

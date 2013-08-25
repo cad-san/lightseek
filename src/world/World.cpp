@@ -87,6 +87,14 @@ int World::getDistance(int x, int y, double angle) const
 
     int min_dist = getDistToEdge(x, y, angle);
 
+    for(unsigned int i = 0; i < obstacles.size(); i++)
+    {
+        int dist = obstacles.at(i)->getDistance(x, y, angle);
+
+        if(dist != INVALID_DISTANCE && dist < min_dist)
+            min_dist = dist;
+    }
+
     return min_dist;
 }
 
