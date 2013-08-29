@@ -2,7 +2,6 @@
 #define D_OBSTACLE_H
 
 #include <boost/shared_ptr.hpp>
-#include "World.h"
 
 class Obstacle
 {
