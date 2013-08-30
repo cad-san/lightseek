@@ -3,8 +3,13 @@
 #include "World.h"
 #include "MockObstacle.h"
 
-#define WORLD_WIDTH 200
-#define WORLD_HEIGHT 200
+static const int WORLD_WIDTH = 200;
+static const int WORLD_HEIGHT = 200;
+
+static const int X_MIN = 0;
+static const int Y_MIN = 0;
+static const int X_MAX = WORLD_WIDTH - 1;
+static const int Y_MAX = WORLD_HEIGHT - 1;
 
 TEST_GROUP(World)
 {
@@ -24,8 +29,8 @@ TEST_GROUP(World)
 
 TEST(World, Init)
 {
-    CHECK(world->isValidPosition(0, 0));
-    CHECK(world->isValidPosition(WORLD_WIDTH - 1, WORLD_HEIGHT - 1));
+    CHECK(world->isValidPosition(X_MIN, Y_MIN));
+    CHECK(world->isValidPosition(X_MAX, Y_MAX));
 }
 
 TEST(World, AddObstacle)
@@ -38,8 +43,18 @@ TEST(World, AddObstacle)
 
 TEST(World, GetDistanceNoObsacle)
 {
-    int distance = world->getDistance(100, 100, 0);
-    LONGS_EQUAL(99, distance);
+    LONGS_EQUAL(X_MAX - 100, world->getDistance(100, 100,   0));
+    LONGS_EQUAL(Y_MAX - 100, world->getDistance(100, 100,  90));
+    LONGS_EQUAL(X_MIN + 100, world->getDistance(100, 100, 180));
+    LONGS_EQUAL(Y_MIN + 100, world->getDistance(100, 100, 270));
+}
+
+TEST(World, GetDistanceNoObsacleAngled)
+{
+    LONGS_EQUAL(141, world->getDistance(X_MIN + 50, Y_MAX - 100,  45));
+    LONGS_EQUAL(141, world->getDistance(X_MAX - 50, Y_MAX - 100, 135));
+    LONGS_EQUAL(141, world->getDistance(X_MAX - 50, Y_MIN + 100, 225));
+    LONGS_EQUAL(141, world->getDistance(X_MIN + 50, Y_MIN + 100, 315));
 }
 
 TEST(World, GetDistance)

@@ -3,6 +3,8 @@
 static const int DEFAULT_WIDTH = 500;
 static const int DEFAULT_HEIGHT = 500;
 
+static const Geo::Point INVALID_POINT(World::INVALID_COORD, World::INVALID_COORD);
+
 World::World()
 {
     this->width = DEFAULT_WIDTH;
@@ -55,12 +57,15 @@ Geo::Line World::getEdge(int index) const
 {
     Geo::Line edges[4];
 
+    if(index < 0 || index >= 4)
+        return Geo::Line(INVALID_POINT, INVALID_POINT);
+
     edges[0] = Geo::Line(width-1,        0, width-1, height-1 );     // 左
     edges[1] = Geo::Line(      0, height-1, width-1, height-1 );     // 下
     edges[2] = Geo::Line(      0,        0,       0, height-1 );     // 右
     edges[3] = Geo::Line(      0,        0, width-1,        0 );     // 上
 
-    return edges[index % 4];
+    return edges[index];
 }
 
 int World::getDistToEdge(int x, int y, double angle) const
@@ -69,15 +74,24 @@ int World::getDistToEdge(int x, int y, double angle) const
         return INVALID_DISTANCE;
 
     Geo::Point src = Geo::Point(x, y);
-    Geo::Line edge = getEdge( static_cast<int>(angle/90) );
-    Geo::Line line = Geo::Line( src, 1.0, Geo::convert_radian(angle) );
 
-    if(!Geo::intersects_l(edge, line))
-        return INVALID_DISTANCE;
+    int length = Geo::Point(width, height).length();
+    double radian = Geo::convert_radian(angle);
+    Geo::Line line = Geo::Line( src, length, radian );
 
-    Geo::Point tgt = Geo::intersection_l(edge, line);
+    for(unsigned int i = 0; i < 4; i++)
+    {
+        Geo::Line edge = getEdge(i);
 
-    return Geo::distance(src, tgt);
+        if(!Geo::intersects_s(edge, line))
+            continue;
+
+        Geo::Point tgt = Geo::intersection_s(edge, line);
+
+        return Geo::distance(src, tgt);
+    }
+
+    return INVALID_DISTANCE;
 }
 
 int World::getDistance(int x, int y, double angle) const
