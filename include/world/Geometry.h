@@ -18,6 +18,7 @@ public:
     type x() const;
     type y() const;
 
+    type length(void) const;
 };
 
 class Line
@@ -41,6 +42,7 @@ public:
 type convert_radian(const type& degree);
 type convert_degree(const type& radian);
 
+type length(const Point& a);
 type dot(const Point& a, const Point& b);
 type cross(const Point& a, const Point& b);
 type distance(const Point& a, const Point& b);

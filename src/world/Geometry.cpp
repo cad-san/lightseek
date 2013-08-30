@@ -31,6 +31,11 @@ type Point::y() const
     return this->imag();
 }
 
+type Point::length(void) const
+{
+    return Geo::length(*this);
+}
+
 Line::Line() : p_s(0, 0), p_e(0, 0)
 {
 }
@@ -74,6 +79,11 @@ type convert_radian(const type& degree)
 type convert_degree(const type& radian)
 {
     return radian * 180 / PI;
+}
+
+type length(const Point& point)
+{
+    return abs(point);
 }
 
 type dot(const Point& a, const Point& b)

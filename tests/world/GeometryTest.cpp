@@ -21,6 +21,14 @@ TEST(Geometry, Distance)
     LONGS_EQUAL(500, Geo::distance(a, b));
 }
 
+TEST(Geometry, LengthFromOrigin)
+{
+    Geo::Point point(300, 400);
+
+    LONGS_EQUAL(500, Geo::length(point));
+    LONGS_EQUAL(500, point.length());
+}
+
 TEST(Geometry, LineLength)
 {
     Geo::Line line1(100, 100, 400, 500);
