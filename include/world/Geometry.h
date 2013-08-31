@@ -11,6 +11,7 @@ static const double PI = 3.141592;
 class Point : public std::complex<type>
 {
 public:
+    Point();
     Point( const type& x, const type& y );
     Point( const std::complex<type>& super );
     ~Point();

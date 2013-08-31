@@ -23,19 +23,18 @@ World::~World()
 
 bool World::addObstacle(const ObstaclePtr& new_obstacle)
 {
-    int x, y, w, h;
+    Geo::Point min, max;
 
     if(new_obstacle.get() == NULL)
         return false;
 
-    new_obstacle->getPosition(&x, &y);
+    min = new_obstacle->getMinPoint();
+    max = new_obstacle->getMaxPoint();
 
-    if(!isValidPosition(x,y))
+    if(!isValidPosition(min.x(), min.y()))
         return false;
 
-    new_obstacle->getDimension(&w, &h);
-
-    if(!isValidPosition(x + w - 1, y + h -1))
+    if(!isValidPosition(max.x(), max.y()))
         return false;
 
     obstacles.push_back(new_obstacle);
@@ -60,9 +59,9 @@ Geo::Line World::getEdge(int index) const
     if(index < 0 || index >= 4)
         return Geo::Line(INVALID_POINT, INVALID_POINT);
 
-    edges[0] = Geo::Line(width-1,        0, width-1, height-1 );     // 左
+    edges[0] = Geo::Line(width-1,        0, width-1, height-1 );     // 右
     edges[1] = Geo::Line(      0, height-1, width-1, height-1 );     // 下
-    edges[2] = Geo::Line(      0,        0,       0, height-1 );     // 右
+    edges[2] = Geo::Line(      0,        0,       0, height-1 );     // 左
     edges[3] = Geo::Line(      0,        0, width-1,        0 );     // 上
 
     return edges[index];
@@ -75,7 +74,7 @@ int World::getDistToEdge(int x, int y, double angle) const
 
     Geo::Point src = Geo::Point(x, y);
 
-    int length = Geo::Point(width, height).length();
+    int length = getMaxLength();
     double radian = Geo::convert_radian(angle);
     Geo::Line line = Geo::Line( src, length, radian );
 
@@ -115,4 +114,9 @@ int World::getDistance(int x, int y, double angle) const
 bool World::isValidPosition(int x, int y) const
 {
     return ( 0 <= x && x < width ) && ( 0 <= y && y < height );
+}
+
+int World::getMaxLength() const
+{
+    return Geo::Point(width, height).length();
 }

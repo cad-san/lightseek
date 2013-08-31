@@ -1,6 +1,7 @@
 #ifndef D_OBSTACLE_H
 #define D_OBSTACLE_H
 
+#include <Geometry.h>
 #include <boost/shared_ptr.hpp>
 
 class Obstacle
@@ -37,6 +38,16 @@ public:
 
         *w = this->width;
         *h = this->height;
+    }
+
+    Geo::Point getMinPoint() const
+    {
+        return Geo::Point(x, y);
+    }
+
+    Geo::Point getMaxPoint() const
+    {
+        return Geo::Point(x+width-1, y+height-1);
     }
 
     virtual bool isInArea(int x, int y) const = 0;

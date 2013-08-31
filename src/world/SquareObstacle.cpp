@@ -24,8 +24,8 @@ Geo::Line SquareObstacle::getEdge(int index) const
         return Geo::Line(INVALID_POINT, INVALID_POINT);
 
     Geo::Line edges[4];
-    Geo::Point s(x, y);
-    Geo::Point e(x+width-1, y+height-1);
+    Geo::Point s = getMinPoint();
+    Geo::Point e = getMaxPoint();
 
     edges[0] = Geo::Line(e.x(), s.y(), e.x(), e.y());     // 右
     edges[1] = Geo::Line(s.x(), e.y(), e.x(), e.y());     // 下

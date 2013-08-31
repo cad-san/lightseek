@@ -7,6 +7,10 @@ static const double EPS = 1e-10;
 namespace Geo
 {
 
+Point::Point() : std::complex<type>(0, 0)
+{
+}
+
 Point::Point( const type& x, const type& y)
     : std::complex<type>(x, y)
 {

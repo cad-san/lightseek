@@ -28,7 +28,8 @@ public:
     virtual int getDistance(int x, int y, double angle) const;
     virtual int getDistToEdge(int x, int y, double angle) const;
 
-    virtual bool isValidPosition(int x, int y) const;
+    int getMaxLength() const;
+    bool isValidPosition(int x, int y) const;
 
     bool addObstacle(const ObstaclePtr& obstacle);
     bool isObstacleArea(int x, int y) const;
