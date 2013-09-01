@@ -18,6 +18,15 @@ bool SquareObstacle::isInArea(int x, int y) const
            ( this->y <= y && y < this->y + this->height );
 }
 
+bool SquareObstacle::isInArea(const Obstacle& obstacle) const
+{
+    Geo::Point min = getMinPoint();
+    Geo::Point max = getMaxPoint();
+
+    return ( obstacle.isInArea(min.x(), min.y()) || obstacle.isInArea(min.x(), max.y()) ||
+             obstacle.isInArea(max.x(), min.y()) || obstacle.isInArea(max.x(), max.y()) );
+}
+
 Geo::Line SquareObstacle::getEdge(int index) const
 {
     if(index < 0 || index >= 4)

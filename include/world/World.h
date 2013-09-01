@@ -33,6 +33,7 @@ public:
 
     bool addObstacle(const ObstaclePtr& obstacle);
     bool isObstacleArea(int x, int y) const;
+    bool isObstacleArea(const Obstacle& obstacle) const;
 };
 
 typedef boost::shared_ptr<World> WorldPtr;

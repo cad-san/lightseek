@@ -41,6 +41,17 @@ TEST(World, AddObstacle)
     CHECK(world->isObstacleArea(25,25));
 }
 
+TEST(World, AddObstacleOverlap)
+{
+    MockObstaclePtr obst_1 = MockObstaclePtr(new MockObstacle(100, 100, 50, 50));
+    MockObstaclePtr obst_2 = MockObstaclePtr(new MockObstacle(149, 100, 50, 50));
+    MockObstaclePtr obst_3 = MockObstaclePtr(new MockObstacle(150, 100, 50, 50));
+
+    CHECK_EQUAL( true, world->addObstacle(obst_1));
+    CHECK_EQUAL(false, world->addObstacle(obst_2));
+    CHECK_EQUAL( true, world->addObstacle(obst_3));
+}
+
 TEST(World, GetDistanceNoObsacle)
 {
     LONGS_EQUAL(X_MAX - 100, world->getDistance(100, 100,   0));

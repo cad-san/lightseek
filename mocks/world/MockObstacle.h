@@ -24,6 +24,15 @@ public:
                ( this->y <= y && y < this->y + this->height );
     }
 
+    virtual bool isInArea(const Obstacle& obstacle) const
+    {
+        Geo::Point min = getMinPoint();
+        Geo::Point max = getMaxPoint();
+
+        return ( obstacle.isInArea(min.x(), min.y()) || obstacle.isInArea(min.x(), max.y()) ||
+                 obstacle.isInArea(max.x(), min.y()) || obstacle.isInArea(max.x(), max.y()) );
+    }
+
     virtual int getDistance(int x, int y, double angle) const
     {
         mock("MockObstacle")

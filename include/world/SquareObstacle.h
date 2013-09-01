@@ -14,6 +14,7 @@ public:
     ~SquareObstacle();
 
     virtual bool isInArea(int x, int y) const;
+    virtual bool isInArea(const Obstacle& obstacle) const;
     virtual int getDistance(int x, int y, double angle) const;
 
 };

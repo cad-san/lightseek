@@ -37,9 +37,22 @@ bool World::addObstacle(const ObstaclePtr& new_obstacle)
     if(!isValidPosition(max.x(), max.y()))
         return false;
 
+    if(isObstacleArea( *new_obstacle.get() ))
+        return false;
+
     obstacles.push_back(new_obstacle);
 
     return true;
+}
+
+bool World::isObstacleArea(const Obstacle& obstacle) const
+{
+    for(unsigned int i = 0; i < obstacles.size(); i++)
+    {
+        if( obstacles.at(i)->isInArea(obstacle) )
+            return true;
+    }
+    return false;
 }
 
 bool World::isObstacleArea(int x, int y) const
