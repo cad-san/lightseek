@@ -1,6 +1,6 @@
 #include "Robot.h"
 
-Robot::Robot(const WorldPtr& worldPtr) : worldPtr(worldPtr)
+Robot::Robot(const WorldPtr& world_ptr) : world(world_ptr)
 {
     this->x = World::INVALID_COORD;
     this->y = World::INVALID_COORD;
@@ -17,7 +17,7 @@ void Robot::init()
 
 int Robot::getDistance() const
 {
-    return worldPtr->getDistance(x,y,angle);
+    return world->getDistance(x,y,angle);
 }
 
 void Robot::getPosition(int* x, int* y) const

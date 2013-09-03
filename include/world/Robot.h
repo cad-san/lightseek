@@ -10,11 +10,11 @@ private:
     int y;
     double angle;
 
-    WorldPtr worldPtr;
+    WorldPtr world;
 
 public:
 
-    Robot(const WorldPtr& worldPtr);
+    Robot(const WorldPtr& world_ptr);
     virtual ~Robot();
 
     void init();
