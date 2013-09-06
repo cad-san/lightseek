@@ -4,7 +4,7 @@ Robot::Robot(const WorldPtr& world_ptr) : world(world_ptr)
 {
     this->x = World::INVALID_COORD;
     this->y = World::INVALID_COORD;
-    this->angle = 0.0;
+    this->angle = 0;
 }
 
 Robot::~Robot()
@@ -29,7 +29,7 @@ void Robot::getPosition(int* x, int* y) const
     *y = this->y;
 }
 
-void Robot::getAngle(double* angle) const
+void Robot::getAngle(int* angle) const
 {
     if(angle == NULL)
         return;
@@ -45,7 +45,7 @@ bool Robot::setPosition(const int& x, const int& y)
     return true;
 }
 
-bool Robot::setAngle(const double& angle)
+bool Robot::setAngle(const int& angle)
 {
     this->angle = angle;
 

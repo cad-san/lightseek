@@ -44,7 +44,7 @@ Geo::Line SquareObstacle::getEdge(int index) const
     return edges[index];
 }
 
-int SquareObstacle::getDistance(int x, int y, double angle) const
+int SquareObstacle::getDistance(int x, int y, int angle) const
 {
     int min_dist = World::INVALID_DISTANCE;
 

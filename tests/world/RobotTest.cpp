@@ -25,38 +25,38 @@ TEST_GROUP(Robot)
 TEST(Robot, Init)
 {
     int x, y;
-    double angle;
+    int angle;
 
     robot->getPosition(&x,&y);
     LONGS_EQUAL(World::INVALID_COORD, x);
     LONGS_EQUAL(World::INVALID_COORD, y);
 
     robot->getAngle(&angle);
-    DOUBLES_EQUAL(0.0, angle, 0.0);
+    LONGS_EQUAL(0, angle);
 }
 
 TEST(Robot, SetPosition)
 {
     int x, y;
-    double angle;
+    int angle;
 
     robot->setPosition(50, 100);
-    robot->setAngle(1.0);
+    robot->setAngle(90);
 
     robot->getPosition(&x,&y);
     LONGS_EQUAL( 50, x);
     LONGS_EQUAL(100, y);
 
     robot->getAngle(&angle);
-    DOUBLES_EQUAL(1.0, angle, 0.0);
+    LONGS_EQUAL(90, angle);
 }
 
 TEST(Robot, GetDistance)
 {
     robot->setPosition(50, 100);
-    robot->setAngle(1.0);
+    robot->setAngle(90);
 
-    worldPtr->setExpectionOfGetDistance(50, 100, 1.0);
+    worldPtr->setExpectionOfGetDistance(50, 100, 90);
     worldPtr->setDummyDistance(100);
 
     LONGS_EQUAL(100, robot->getDistance());

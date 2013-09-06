@@ -25,8 +25,8 @@ public:
     World(int width, int height);
     virtual ~World();
 
-    virtual int getDistance(int x, int y, double angle) const;
-    virtual int getDistToEdge(int x, int y, double angle) const;
+    virtual int getDistance(int x, int y, int angle) const;
+    virtual int getDistToEdge(int x, int y, int angle) const;
 
     int getMaxLength() const;
     bool isValidPosition(int x, int y) const;

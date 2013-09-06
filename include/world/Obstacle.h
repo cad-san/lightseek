@@ -52,7 +52,7 @@ public:
 
     virtual bool isInArea(int x, int y) const = 0;
     virtual bool isInArea(const Obstacle& obstacle) const = 0;
-    virtual int getDistance(int x, int y, double angle) const = 0;
+    virtual int getDistance(int x, int y, int angle) const = 0;
 };
 
 typedef boost::shared_ptr<Obstacle> ObstaclePtr;

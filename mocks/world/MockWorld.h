@@ -22,7 +22,7 @@ public:
         this->dummy_dist = dummy_dist;
     }
 
-    int getDistance(int x, int y, double angle) const
+    int getDistance(int x, int y, int angle) const
     {
         mock("MockWorld")
             .actualCall("getDistance")
@@ -33,7 +33,7 @@ public:
         return this->dummy_dist;
     }
 
-    void setExpectionOfGetDistance(int x, int y, double angle)
+    void setExpectionOfGetDistance(int x, int y, int angle)
     {
         mock("MockWorld")
             .expectOneCall("getDistance")

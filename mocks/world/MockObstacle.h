@@ -18,7 +18,7 @@ public:
 
     virtual ~MockObstacle() {};
 
-    virtual int getDistance(int x, int y, double angle) const
+    virtual int getDistance(int x, int y, int angle) const
     {
         mock("MockObstacle")
             .actualCall("getDistance")
@@ -29,7 +29,7 @@ public:
         return this->dummy_dist;
     }
 
-    void setExpectionOfGetDistance(int x, int y, double angle)
+    void setExpectionOfGetDistance(int x, int y, int angle)
     {
         mock("MockObstacle")
             .expectOneCall("getDistance")

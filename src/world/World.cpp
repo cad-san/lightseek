@@ -80,7 +80,7 @@ Geo::Line World::getEdge(int index) const
     return edges[index];
 }
 
-int World::getDistToEdge(int x, int y, double angle) const
+int World::getDistToEdge(int x, int y, int angle) const
 {
     if(!isValidPosition(x, y))
         return INVALID_DISTANCE;
@@ -106,7 +106,7 @@ int World::getDistToEdge(int x, int y, double angle) const
     return INVALID_DISTANCE;
 }
 
-int World::getDistance(int x, int y, double angle) const
+int World::getDistance(int x, int y, int angle) const
 {
     if(!isValidPosition(x, y))
         return INVALID_DISTANCE;

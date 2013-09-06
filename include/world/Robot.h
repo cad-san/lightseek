@@ -8,7 +8,7 @@ class Robot
 private:
     int x;
     int y;
-    double angle;
+    int angle;
 
     WorldPtr world;
 
@@ -22,10 +22,10 @@ public:
     int getDistance() const;
 
     bool setPosition(const int& x, const int& y);
-    bool setAngle(const double& angle);
+    bool setAngle(const int& angle);
 
     void getPosition(int* x, int* y) const;
-    void getAngle(double* angle) const;
+    void getAngle(int* angle) const;
 };
 
 typedef boost::shared_ptr<Robot> RobotPtr;
