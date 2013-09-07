@@ -40,6 +40,8 @@ public:
     type length(void) const;
 };
 
+Point polar(const type& rho, const type& theta);
+
 type convert_radian(const type& degree);
 type convert_degree(const type& radian);
 

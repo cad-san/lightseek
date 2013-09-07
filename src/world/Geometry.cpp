@@ -75,6 +75,11 @@ type Line::length() const
     return Geo::distance(this->p_s, this->p_e);
 }
 
+Point polar(const type& rho, const type& theta)
+{
+    return std::polar(rho, theta);
+}
+
 type convert_radian(const type& degree)
 {
     return degree * PI / 180.0;
