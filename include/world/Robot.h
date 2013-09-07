@@ -26,6 +26,9 @@ public:
 
     void getPosition(int* x, int* y) const;
     void getAngle(int* angle) const;
+
+    bool moveFront(const int distance);
+    bool rotate(const int angle);
 };
 
 typedef boost::shared_ptr<Robot> RobotPtr;

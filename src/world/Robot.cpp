@@ -1,4 +1,5 @@
 #include "Robot.h"
+#include "Geometry.h"
 
 Robot::Robot(const WorldPtr& world_ptr) : world(world_ptr)
 {
@@ -48,6 +49,29 @@ bool Robot::setPosition(const int& x, const int& y)
 bool Robot::setAngle(const int& angle)
 {
     this->angle = angle;
+
+    return true;
+}
+
+bool Robot::moveFront(const int distance)
+{
+    double radian = Geo::convert_radian(angle);
+    Geo::Point curr(x, y);
+    Geo::Point next = curr + Geo::polar(distance, radian);
+
+    if(!world->isValidPosition(next.x(), next.y()))
+        return false;
+
+    this->x = static_cast<int>(next.x());
+    this->y = static_cast<int>(next.y());
+
+    return true;
+}
+
+bool::Robot::rotate(const int angle)
+{
+    this->angle += angle;
+    this->angle = (this->angle + 360) % 360;
 
     return true;
 }
