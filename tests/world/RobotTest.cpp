@@ -62,3 +62,39 @@ TEST(Robot, GetDistance)
     LONGS_EQUAL(100, robot->getDistance());
     mock().checkExpectations();
 }
+
+TEST(Robot, MoveFront)
+{
+    int x, y;
+    int angle;
+
+    robot->setPosition(50, 100);
+    robot->setAngle(0);
+
+    robot->moveFront(50);
+
+    robot->getPosition(&x,&y);
+    LONGS_EQUAL(100, x);
+    LONGS_EQUAL(100, y);
+
+    robot->getAngle(&angle);
+    LONGS_EQUAL(0, angle);
+}
+
+TEST(Robot, Rotate)
+{
+    int x, y;
+    int angle;
+
+    robot->setPosition(50, 100);
+    robot->setAngle(0);
+
+    robot->rotate(90);
+
+    robot->getPosition(&x,&y);
+    LONGS_EQUAL( 50, x);
+    LONGS_EQUAL(100, y);
+
+    robot->getAngle(&angle);
+    LONGS_EQUAL(90, angle);
+}
