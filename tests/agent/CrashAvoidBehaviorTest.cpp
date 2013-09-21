@@ -22,6 +22,7 @@ TEST_GROUP(CrashAvoidBehavior)
 
     void teardown()
     {
+        mock().clear();
         delete behavior;
     }
 };
@@ -49,4 +50,17 @@ TEST(CrashAvoidBehavior, NotActiveAfterSensing)
     behavior->sensing();
 
     CHECK_EQUAL(false, behavior->isActive());
+}
+
+TEST(CrashAvoidBehavior, Perform)
+{
+    sensor->setDummyDistance(0);
+    sensor->step();
+
+    action->setExpectionOfRotate(90, true);
+
+    behavior->sensing();
+    behavior->perform();
+
+    mock().checkExpectations();
 }
