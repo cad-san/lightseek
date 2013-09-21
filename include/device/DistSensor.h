@@ -13,5 +13,7 @@ public:
     virtual int getDistance() const = 0;
 };
 
+typedef boost::shared_ptr<DistSensor> DistSensorPtr;
+
 #endif
 
