@@ -41,5 +41,7 @@ public:
     }
 };
 
+typedef boost::shared_ptr<MockDistSensor> MockDistSensorPtr;
+
 #endif
 

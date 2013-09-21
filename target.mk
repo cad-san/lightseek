@@ -12,16 +12,19 @@ SRC_DIRS = \
 	$(PROJECT_HOME_DIR)/src\
 	$(PROJECT_HOME_DIR)/src/device\
 	$(PROJECT_HOME_DIR)/src/world\
+	$(PROJECT_HOME_DIR)/src/agent\
 
 TEST_SRC_DIRS = \
 	$(PROJECT_HOME_DIR)/tests\
 	$(PROJECT_HOME_DIR)/tests/device\
 	$(PROJECT_HOME_DIR)/tests/world\
+	$(PROJECT_HOME_DIR)/tests/agent\
 
 INC_DIRS = \
 	$(PROJECT_HOME_DIR)/include\
 	$(PROJECT_HOME_DIR)/include/device\
 	$(PROJECT_HOME_DIR)/include/world\
+	$(PROJECT_HOME_DIR)/include/agent\
 	$(PROJECT_HOME_DIR)/mocks\
 	$(SUBSUMPTION_DIR)/include/agent\
 	$(SUBSUMPTION_DIR)/include/environment\
@@ -36,3 +39,4 @@ MOCKS_SRC_DIRS = \
 	$(PROJECT_HOME_DIR)/mocks\
 	$(PROJECT_HOME_DIR)/mocks/device\
 	$(PROJECT_HOME_DIR)/mocks/world\
+	$(PROJECT_HOME_DIR)/mocks/agent\
