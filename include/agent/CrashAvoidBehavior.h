@@ -8,7 +8,7 @@
 class CrashAvoidBehavior : public Behavior
 {
 private:
-    bool active_flag;
+    int sensed_dist;
     DistSensorPtr sensor;
     ActionPtr action;
 public:

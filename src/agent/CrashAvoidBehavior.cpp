@@ -1,9 +1,11 @@
 #include "CrashAvoidBehavior.h"
 
+static const int THRESHOLD_DIST = 50;
+
 CrashAvoidBehavior::CrashAvoidBehavior(const DistSensorPtr& sensor_ptr, const ActionPtr& action_ptr)
     : sensor(sensor_ptr), action(action_ptr)
 {
-    active_flag = false;
+    sensed_dist = DistSensor::INVALID_DISTANCE;
 }
 
 CrashAvoidBehavior::~CrashAvoidBehavior()
@@ -12,11 +14,12 @@ CrashAvoidBehavior::~CrashAvoidBehavior()
 
 void CrashAvoidBehavior::init()
 {
-    active_flag = false;
+    sensed_dist = DistSensor::INVALID_DISTANCE;
 }
 
 void CrashAvoidBehavior::sensing()
 {
+    sensed_dist = sensor->getDistance();
 }
 
 void CrashAvoidBehavior::perform()
@@ -25,5 +28,5 @@ void CrashAvoidBehavior::perform()
 
 const bool CrashAvoidBehavior::isActive() const
 {
-    return active_flag;
+    return (sensed_dist >= 0 && sensed_dist < THRESHOLD_DIST);
 }
