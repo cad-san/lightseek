@@ -1,17 +1,32 @@
 # this is set up to by default to make the top level and test with CppUTest
-all: codeCppUTest
+all: test
 
 clean:
 	@if [ -e cpputest/Makefile_using_MakefileWorker ]; \
-	then make cleanCodeCppUTest; \
+	then make cleanTest; \
 	else make cleanRelease; \
 	fi
 
-codeCppUTest: CppUTest CppUTestExt subsumption
-	make -i -f scripts/MakefileCppUTest.mk
+test: CppUTest CppUTestExt subsumption
+	make -f scripts/MakefileCppUTest.mk
 
-cleanCodeCppUTest:
+gcov: CppUTest CppUTestExt subsumption clean
+	make -f scripts/MakefileCppUTest.mk gcov
+
+cleanTest:
 	make -i -f scripts/MakefileCppUTest.mk clean
+
+release: clean subsumption
+	make -f scripts/MakefileRelease.mk
+
+cleanRelease:
+	make -i -f scripts/MakefileRelease.mk clean
+
+format:
+	make -i -f scripts/MakefileUtil.mk uncrustify
+
+check:
+	make -i -f scripts/MakefileUtil.mk cppcheck
 
 CppUTest: cpputest/lib/libCppUTest.a
 
@@ -29,17 +44,3 @@ cpputest/lib/libCppUTestExt.a:
 subsumption/lib/libsubsumption.a:
 	make -i -C subsumption release
 
-release: clean subsumption
-	make -i -f scripts/MakefileRelease.mk
-
-cleanRelease:
-	make -i -f scripts/MakefileRelease.mk clean
-
-gcov: clean
-	make -i -f scripts/MakefileCppUTest.mk gcov
-
-format:
-	make -i -f scripts/MakefileUtil.mk uncrustify
-
-check:
-	make -i -f scripts/MakefileUtil.mk cppcheck
