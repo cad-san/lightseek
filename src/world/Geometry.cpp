@@ -92,7 +92,7 @@ type convert_degree(const type& radian)
 
 type length(const Point& point)
 {
-    return abs(point);
+    return std::abs(point);
 }
 
 type dot(const Point& a, const Point& b)
@@ -107,12 +107,12 @@ type cross(const Point& a, const Point& b)
 
 type distance(const Point& a, const Point& b)
 {
-    return abs(a - b);
+    return std::abs(a - b);
 }
 
 bool equals(const type& a, const type& b)
 {
-    return (abs(a-b) < EPS);
+    return (std::abs(a-b) < EPS);
 }
 
 bool intersects_s(const Line& a, const Line& b)
@@ -129,8 +129,8 @@ Point intersection_s(const Line& a, const Line& b)
     Point a_vector = a.e() - a.s();
     Point b_vector = b.e() - b.s();
 
-    type dist_s = abs( cross( b_vector, a.s() - b.s() ) );
-    type dist_e = abs( cross( b_vector, a.e() - b.s() ) );
+    type dist_s = std::abs( cross( b_vector, a.s() - b.s() ) );
+    type dist_e = std::abs( cross( b_vector, a.e() - b.s() ) );
 
     return a.s() + a_vector * dist_s / ( dist_s + dist_e );
 }
