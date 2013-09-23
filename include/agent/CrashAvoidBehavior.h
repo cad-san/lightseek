@@ -12,8 +12,8 @@ private:
     DistSensorPtr sensor;
     ActionPtr action;
 public:
-    CrashAvoidBehavior(const DistSensorPtr& sensor_ptr,
-                       const ActionPtr& action_ptr);
+    CrashAvoidBehavior(const unsigned int behavior_id,
+                       const DistSensorPtr& sensor_ptr, const ActionPtr& action_ptr);
     virtual ~CrashAvoidBehavior();
 
     virtual void init();

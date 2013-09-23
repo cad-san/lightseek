@@ -4,6 +4,8 @@
 #include "MockDistSensor.h"
 #include "MockAction.h"
 
+static const unsigned int dummy_id = 0x01;
+
 TEST_GROUP(GoStraightBehavior)
 {
     MockDistSensorPtr sensor;
@@ -14,7 +16,7 @@ TEST_GROUP(GoStraightBehavior)
     {
         action = MockActionPtr(new MockAction());
         sensor = MockDistSensorPtr(new MockDistSensor());
-        behavior = new GoStraightBehavior(sensor, action);
+        behavior = new GoStraightBehavior(dummy_id, sensor, action);
 
         sensor->init();
         behavior->init();

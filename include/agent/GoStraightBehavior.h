@@ -12,8 +12,8 @@ private:
     DistSensorPtr sensor;
     ActionPtr action;
 public:
-    GoStraightBehavior(const DistSensorPtr& sensor_ptr,
-                       const ActionPtr& action_ptr);
+    GoStraightBehavior(const unsigned int behavior_id,
+                       const DistSensorPtr& sensor_ptr, const ActionPtr& action_ptr);
     virtual ~GoStraightBehavior();
 
     virtual void init();
