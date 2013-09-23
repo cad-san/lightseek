@@ -2,8 +2,9 @@
 
 static const int THRESHOLD_DIST = 50;
 
-GoStraightBehavior::GoStraightBehavior(const DistSensorPtr& sensor_ptr, const ActionPtr& action_ptr)
-    : sensor(sensor_ptr), action(action_ptr)
+GoStraightBehavior::GoStraightBehavior(const unsigned int behavior_id,
+                                       const DistSensorPtr& sensor_ptr, const ActionPtr& action_ptr)
+    : Behavior(behavior_id), sensor(sensor_ptr), action(action_ptr)
 {
     sensed_dist = DistSensor::INVALID_DISTANCE;
 }
