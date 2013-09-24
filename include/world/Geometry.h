@@ -38,6 +38,7 @@ public:
     Point e() const;
 
     type length(void) const;
+    type angle(void) const;
 };
 
 Point polar(const type& rho, const type& theta);
@@ -49,6 +50,7 @@ type length(const Point& a);
 type dot(const Point& a, const Point& b);
 type cross(const Point& a, const Point& b);
 type distance(const Point& a, const Point& b);
+type angle(const Point& a, const Point& b);
 bool equals(const type& a, const type& b);
 
 bool intersects_s(const Line& a, const Line& b);

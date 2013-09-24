@@ -72,3 +72,11 @@ TEST(SquareObstacle, GetDistanceNoIntersection)
     LONGS_EQUAL(World::INVALID_DISTANCE, square->getDistance(X_MIN - 100, Y_MIN +   1, 45));
     LONGS_EQUAL(World::INVALID_DISTANCE, square->getDistance(X_MIN -   1, Y_MIN - 100, 90));
 }
+
+TEST(SquareObstacle, GetDistanceOppositeAngle)
+{
+    LONGS_EQUAL(World::INVALID_DISTANCE, square->getDistance(X_MIN -  50, Y_MIN + 50, 180));
+    LONGS_EQUAL(World::INVALID_DISTANCE, square->getDistance(X_MIN +  50, Y_MIN - 50, -90));
+    LONGS_EQUAL(World::INVALID_DISTANCE, square->getDistance(X_MAX +  50, Y_MAX - 50,   0));
+    LONGS_EQUAL(World::INVALID_DISTANCE, square->getDistance(X_MAX -  50, Y_MAX + 50,  90));
+}

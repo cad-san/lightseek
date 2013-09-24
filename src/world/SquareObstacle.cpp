@@ -51,6 +51,8 @@ int SquareObstacle::getDistance(int x, int y, int angle) const
     Geo::Point src = Geo::Point(x, y);
     Geo::Line line = Geo::Line( src, 1.0, Geo::convert_radian(angle) );
 
+    double radian = line.angle();
+
     for(unsigned int i = 0; i < 4; i++)
     {
         Geo::Line edge = getEdge(i);
@@ -61,6 +63,9 @@ int SquareObstacle::getDistance(int x, int y, int angle) const
         Geo::Point tgt = Geo::intersection_l(edge, line);
 
         if(!isInArea(tgt.x(), tgt.y()))
+            continue;
+
+        if(!Geo::equals(radian, Geo::angle(src, tgt)))
             continue;
 
         int distance = Geo::distance(src, tgt);
