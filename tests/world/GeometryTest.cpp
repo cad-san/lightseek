@@ -2,6 +2,8 @@
 
 #include "Geometry.h"
 
+static const double EPS = 1e-5;
+
 TEST_GROUP(Geometry)
 {
     void setup()
@@ -21,6 +23,16 @@ TEST(Geometry, Distance)
     LONGS_EQUAL(500, Geo::distance(a, b));
 }
 
+TEST(Geometry, Angle)
+{
+    Geo::Point a(100, 100);
+    Geo::Point b(200, 100);
+    Geo::Point c(100, 200);
+
+    DOUBLES_EQUAL( 0,           Geo::angle(a, b), EPS );
+    DOUBLES_EQUAL( Geo::PI / 2, Geo::angle(a, c), EPS );
+}
+
 TEST(Geometry, LengthFromOrigin)
 {
     Geo::Point point(300, 400);
@@ -36,6 +48,19 @@ TEST(Geometry, LineLength)
 
     LONGS_EQUAL(500, line1.length());
     LONGS_EQUAL(500, line2.length());
+}
+
+TEST(Geometry, LineAngle)
+{
+    Geo::Line line1(200, 200, 300, 300);
+    Geo::Line line2(200, 200, 300, 100);
+    Geo::Line line3(200, 200, 100, 300);
+    Geo::Line line4(200, 200, 100, 100);
+
+    DOUBLES_EQUAL(  Geo::PI * 1 / 4, line1.angle(), EPS );
+    DOUBLES_EQUAL( -Geo::PI * 1 / 4, line2.angle(), EPS );
+    DOUBLES_EQUAL(  Geo::PI * 3 / 4, line3.angle(), EPS );
+    DOUBLES_EQUAL( -Geo::PI * 3 / 4, line4.angle(), EPS );
 }
 
 TEST(Geometry, SegmentIntersection)

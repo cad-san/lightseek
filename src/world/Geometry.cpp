@@ -75,6 +75,11 @@ type Line::length() const
     return Geo::distance(this->p_s, this->p_e);
 }
 
+type Line::angle() const
+{
+    return Geo::angle(this->p_s, this->p_e);
+}
+
 Point polar(const type& rho, const type& theta)
 {
     return std::polar(rho, theta);
@@ -108,6 +113,11 @@ type cross(const Point& a, const Point& b)
 type distance(const Point& a, const Point& b)
 {
     return std::abs(a - b);
+}
+
+type angle(const Point& a, const Point& b)
+{
+    return std::arg(b - a);
 }
 
 bool equals(const type& a, const type& b)
