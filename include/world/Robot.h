@@ -2,15 +2,19 @@
 #define D_ROBOT_H
 
 #include "World.h"
+#include <boost/thread.hpp>
 
 class Robot
 {
 private:
+    typedef boost::mutex::scoped_lock lock;
+
     int x;
     int y;
     int angle;
 
     WorldPtr world;
+    mutable boost::mutex sync_mutex;
 
 public:
 

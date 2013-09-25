@@ -18,6 +18,7 @@ void Robot::init()
 
 int Robot::getDistance() const
 {
+    lock lk(sync_mutex);
     return world->getDistance(x,y,angle);
 }
 
@@ -26,6 +27,7 @@ void Robot::getPosition(int* x, int* y) const
     if(x == NULL || y == NULL)
         return;
 
+    lock lk(sync_mutex);
     *x = this->x;
     *y = this->y;
 }
@@ -35,11 +37,14 @@ void Robot::getAngle(int* angle) const
     if(angle == NULL)
         return;
 
+    lock lk(sync_mutex);
     *angle = this->angle;
 }
 
 bool Robot::setPosition(const int& x, const int& y)
 {
+    lock lk(sync_mutex);
+
     this->x = x;
     this->y = y;
 
@@ -48,6 +53,8 @@ bool Robot::setPosition(const int& x, const int& y)
 
 bool Robot::setAngle(const int& angle)
 {
+    lock lk(sync_mutex);
+
     this->angle = angle;
 
     return true;
@@ -55,6 +62,8 @@ bool Robot::setAngle(const int& angle)
 
 bool Robot::moveFront(const int distance)
 {
+    lock lk(sync_mutex);
+
     double radian = Geo::convert_radian(angle);
     Geo::Point curr(x, y);
     Geo::Point next = curr + Geo::polar(distance, radian);
@@ -68,8 +77,10 @@ bool Robot::moveFront(const int distance)
     return true;
 }
 
-bool::Robot::rotate(const int angle)
+bool Robot::rotate(const int angle)
 {
+    lock lk(sync_mutex);
+
     this->angle += angle;
     this->angle = (this->angle + 360) % 360;
 
