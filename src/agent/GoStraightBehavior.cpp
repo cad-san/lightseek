@@ -34,7 +34,7 @@ void GoStraightBehavior::perform()
     action->moveFront(speed);
 }
 
-const bool GoStraightBehavior::isActive() const
+bool GoStraightBehavior::isActive() const
 {
     return (sensed_dist >= THRESHOLD_DIST);
 }

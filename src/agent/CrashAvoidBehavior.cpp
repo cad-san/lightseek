@@ -31,7 +31,7 @@ void CrashAvoidBehavior::perform()
     action->rotate(90 * (1 - sensed_dist / THRESHOLD_DIST) );
 }
 
-const bool CrashAvoidBehavior::isActive() const
+bool CrashAvoidBehavior::isActive() const
 {
     return (sensed_dist >= 0 && sensed_dist < THRESHOLD_DIST);
 }
