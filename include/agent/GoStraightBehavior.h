@@ -20,7 +20,7 @@ public:
     virtual void sensing();
     virtual void perform();
 
-    virtual const bool isActive() const;
+    virtual bool isActive() const;
 };
 
 #endif
