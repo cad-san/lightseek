@@ -68,7 +68,7 @@ bool Robot::moveFront(const int distance)
     Geo::Point curr(x, y);
     Geo::Point next = curr + Geo::polar(distance, radian);
 
-    if(!world->isValidPosition(next.x(), next.y()))
+    if(!world->isValidPosition(next))
         return false;
 
     this->x = static_cast<int>(next.x());
