@@ -7,8 +7,9 @@ SILENCE = @
 include target.mk
 
 #---- Setting ----#
-CPPUTEST_WARNINGFLAGS = -Wall -Wswitch-default -Werror
-CPPUTEST_CFLAGS += -Wall -Wstrict-prototypes -pedantic
+CPPUTEST_WARNINGFLAGS = -Wall -W -pedantic\
+                        -Wcast-qual -Wcast-align -Wwrite-strings\
+                        -Wconversion -Wfloat-equal -Wpointer-arith
 CPPUTEST_CXXFLAGS += -include tests/PreIncludeFiles.h
 
 CPPUTEST_LDFLAGS += -L$(SUBSUMPTION_DIR)/lib
