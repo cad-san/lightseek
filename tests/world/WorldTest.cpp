@@ -41,6 +41,17 @@ TEST(World, AddObstacle)
     CHECK(world->isObstacleArea(25,25));
 }
 
+TEST(World, AddInvalidObstacle)
+{
+    MockObstaclePtr no_osbtacle;
+    MockObstaclePtr invalid_min = MockObstaclePtr(new MockObstacle(X_MIN - 1, Y_MIN - 1, WORLD_WIDTH, WORLD_HEIGHT));
+    MockObstaclePtr invalid_max = MockObstaclePtr(new MockObstacle(X_MIN, Y_MIN, WORLD_WIDTH + 1, WORLD_HEIGHT + 1));
+
+    CHECK_EQUAL(false, world->addObstacle(no_osbtacle));
+    CHECK_EQUAL(false, world->addObstacle(invalid_min));
+    CHECK_EQUAL(false, world->addObstacle(invalid_max));
+}
+
 TEST(World, AddObstacleOverlap)
 {
     MockObstaclePtr obst_1 = MockObstaclePtr(new MockObstacle(100, 100, 50, 50));

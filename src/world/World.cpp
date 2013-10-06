@@ -31,10 +31,10 @@ bool World::addObstacle(const ObstaclePtr& new_obstacle)
     min = new_obstacle->getMinPoint();
     max = new_obstacle->getMaxPoint();
 
-    if(!isValidPosition(min.x(), min.y()))
+    if(!isValidPosition(min))
         return false;
 
-    if(!isValidPosition(max.x(), max.y()))
+    if(!isValidPosition(max))
         return false;
 
     if(isObstacleArea( *new_obstacle.get() ))
@@ -100,7 +100,7 @@ int World::getDistToEdge(int x, int y, int angle) const
 
         Geo::Point tgt = Geo::intersection_s(edge, line);
 
-        return Geo::distance(src, tgt);
+        return static_cast<int>( Geo::distance(src, tgt) );
     }
 
     return INVALID_DISTANCE;
@@ -129,7 +129,13 @@ bool World::isValidPosition(int x, int y) const
     return ( 0 <= x && x < width ) && ( 0 <= y && y < height );
 }
 
+bool World::isValidPosition(const Geo::Point& p) const
+{
+    return isValidPosition( static_cast<int>(p.x()), static_cast<int>(p.y()) );
+}
+
+
 int World::getMaxLength() const
 {
-    return Geo::Point(width, height).length();
+    return static_cast<int>( Geo::Point(width, height).length() );
 }

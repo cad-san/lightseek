@@ -30,6 +30,7 @@ public:
 
     int getMaxLength() const;
     bool isValidPosition(int x, int y) const;
+    bool isValidPosition(const Geo::Point& p) const;
 
     bool addObstacle(const ObstaclePtr& obstacle);
     bool isObstacleArea(int x, int y) const;
