@@ -15,7 +15,7 @@ private:
 
     std::vector< ObstaclePtr > obstacles;
 
-    Geo::Line getEdge(int index) const;
+    std::vector<Geo::Line> getEdgeList() const;
 
 public:
     static const int INVALID_COORD = -1;

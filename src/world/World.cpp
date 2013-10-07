@@ -65,19 +65,16 @@ bool World::isObstacleArea(int x, int y) const
     return false;
 }
 
-Geo::Line World::getEdge(int index) const
+std::vector<Geo::Line> World::getEdgeList() const
 {
-    Geo::Line edges[4];
+    std::vector<Geo::Line> edge_list;
 
-    if(index < 0 || index >= 4)
-        return Geo::Line(INVALID_POINT, INVALID_POINT);
+    edge_list.push_back(Geo::Line(      0,        0,       0, height-1 ));  // 左
+    edge_list.push_back(Geo::Line(      0, height-1, width-1, height-1 ));  // 下
+    edge_list.push_back(Geo::Line(width-1, height-1, width-1,        0 ));  // 右
+    edge_list.push_back(Geo::Line(width-1,        0,       0,        0 ));  // 上
 
-    edges[0] = Geo::Line(width-1,        0, width-1, height-1 );     // 右
-    edges[1] = Geo::Line(      0, height-1, width-1, height-1 );     // 下
-    edges[2] = Geo::Line(      0,        0,       0, height-1 );     // 左
-    edges[3] = Geo::Line(      0,        0, width-1,        0 );     // 上
-
-    return edges[index];
+    return edge_list;
 }
 
 int World::getDistToEdge(int x, int y, int angle) const
@@ -91,9 +88,11 @@ int World::getDistToEdge(int x, int y, int angle) const
     double radian = Geo::convert_radian(angle);
     Geo::Line line = Geo::Line( src, length, radian );
 
-    for(unsigned int i = 0; i < 4; i++)
+    std::vector<Geo::Line> edge_list = getEdgeList();
+
+    for(unsigned int i = 0; i < edge_list.size(); i++)
     {
-        Geo::Line edge = getEdge(i);
+        Geo::Line edge = edge_list.at(i);
 
         if(!Geo::intersects_s(edge, line))
             continue;
@@ -133,7 +132,6 @@ bool World::isValidPosition(const Geo::Point& p) const
 {
     return isValidPosition( static_cast<int>(p.x()), static_cast<int>(p.y()) );
 }
-
 
 int World::getMaxLength() const
 {

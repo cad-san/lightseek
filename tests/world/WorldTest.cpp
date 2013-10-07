@@ -81,13 +81,13 @@ TEST(World, GetDistanceNoObsacleAngled)
 
 TEST(World, GetDistance)
 {
-    MockObstaclePtr obstacle = MockObstaclePtr(new MockObstacle(100, 0, 50, 50));
+    MockObstaclePtr obstacle = MockObstaclePtr(new MockObstacle(100, 0, 100, 100));
 
-    obstacle->setExpectionOfGetDistance(0, 0, 0);
-    obstacle->setDummyDistance(100);
+    obstacle->setExpectionOfGetDistance(50, 50, 0);
+    obstacle->setDummyDistance(50);
 
     CHECK(world->addObstacle(obstacle));
-    LONGS_EQUAL(100, world->getDistance(0, 0, 0));
+    LONGS_EQUAL(50, world->getDistance(50, 50, 0));
 }
 
 TEST(World, GetDistanceNoIntersection)
