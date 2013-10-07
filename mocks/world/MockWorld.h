@@ -15,7 +15,7 @@ public:
         this->dummy_dist = INVALID_DISTANCE;
     }
 
-    virtual ~MockWorld() {};
+    virtual ~MockWorld() {}
 
     void setDummyDistance(int dummy_dist)
     {

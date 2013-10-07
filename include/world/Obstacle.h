@@ -20,7 +20,7 @@ public:
         this->height = height;
     }
 
-    virtual ~Obstacle() {};
+    virtual ~Obstacle() {}
 
     void getPosition(int* x, int* y) const
     {

@@ -16,7 +16,7 @@ public:
         this->dummy_dist = World::INVALID_DISTANCE;
     }
 
-    virtual ~MockObstacle() {};
+    virtual ~MockObstacle() {}
 
     virtual int getDistance(int x, int y, int angle) const
     {
