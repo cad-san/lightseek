@@ -7,17 +7,17 @@
 class Obstacle
 {
 protected:
-    int x;
-    int y;
-    int width;
-    int height;
+    int x_;
+    int y_;
+    int width_;
+    int height_;
 public:
     Obstacle(int x, int y, int width, int height)
     {
-        this->x = x;
-        this->y = y;
-        this->width = width;
-        this->height = height;
+        this->x_ = x;
+        this->y_ = y;
+        this->width_ = width;
+        this->height_ = height;
     }
 
     virtual ~Obstacle() {}
@@ -27,8 +27,8 @@ public:
         if(x == NULL || y == NULL)
             return;
 
-        *x = this->x;
-        *y = this->y;
+        *x = this->x_;
+        *y = this->y_;
     }
 
     void getDimension(int* w, int* h) const
@@ -36,18 +36,18 @@ public:
         if(w == NULL || h == NULL)
             return;
 
-        *w = this->width;
-        *h = this->height;
+        *w = this->width_;
+        *h = this->height_;
     }
 
     Geo::Point getMinPoint() const
     {
-        return Geo::Point(x, y);
+        return Geo::Point(x_, y_);
     }
 
     Geo::Point getMaxPoint() const
     {
-        return Geo::Point(x+width-1, y+height-1);
+        return Geo::Point(x_ + width_ - 1, y_ + height_ - 1);
     }
 
     virtual bool isInArea(int x, int y) const = 0;

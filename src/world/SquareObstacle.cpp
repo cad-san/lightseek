@@ -14,8 +14,8 @@ SquareObstacle::~SquareObstacle()
 
 bool SquareObstacle::isInArea(int x, int y) const
 {
-    return ( this->x <= x && x < this->x + this->width  ) &&
-           ( this->y <= y && y < this->y + this->height );
+    return ( this->x_ <= x && x < this->x_ + this->width_  ) &&
+           ( this->y_ <= y && y < this->y_ + this->height_ );
 }
 
 bool SquareObstacle::isInArea(const Geo::Point& p) const

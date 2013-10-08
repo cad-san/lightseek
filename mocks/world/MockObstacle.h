@@ -7,13 +7,13 @@
 class MockObstacle : public SquareObstacle
 {
 private:
-    int dummy_dist;
+    int dummy_dist_;
 
 public:
     MockObstacle(int x, int y, int width, int height)
         : SquareObstacle(x, y, width, height)
     {
-        this->dummy_dist = World::INVALID_DISTANCE;
+        this->dummy_dist_ = World::INVALID_DISTANCE;
     }
 
     virtual ~MockObstacle() {}
@@ -26,7 +26,7 @@ public:
             .withParameter("y", y)
             .withParameter("angle", angle);
 
-        return this->dummy_dist;
+        return this->dummy_dist_;
     }
 
     void setExpectionOfGetDistance(int x, int y, int angle)
@@ -40,7 +40,7 @@ public:
 
     void setDummyDistance(int dummy_dist)
     {
-        this->dummy_dist = dummy_dist;
+        this->dummy_dist_ = dummy_dist;
     }
 };
 
