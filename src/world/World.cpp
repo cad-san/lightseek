@@ -7,14 +7,14 @@ static const Geo::Point INVALID_POINT(World::INVALID_COORD, World::INVALID_COORD
 
 World::World()
 {
-    this->width = DEFAULT_WIDTH;
-    this->height = DEFAULT_HEIGHT;
+    this->width_ = DEFAULT_WIDTH;
+    this->height_ = DEFAULT_HEIGHT;
 }
 
 World::World(int width, int height)
 {
-    this->width = width;
-    this->height = height;
+    this->width_ = width;
+    this->height_ = height;
 }
 
 World::~World()
@@ -40,16 +40,16 @@ bool World::addObstacle(const ObstaclePtr& new_obstacle)
     if(isObstacleArea( *new_obstacle.get() ))
         return false;
 
-    obstacles.push_back(new_obstacle);
+    obstacles_.push_back(new_obstacle);
 
     return true;
 }
 
 bool World::isObstacleArea(const Obstacle& obstacle) const
 {
-    for(unsigned int i = 0; i < obstacles.size(); i++)
+    for(unsigned int i = 0; i < obstacles_.size(); i++)
     {
-        if( obstacles.at(i)->isInArea(obstacle) )
+        if( obstacles_.at(i)->isInArea(obstacle) )
             return true;
     }
     return false;
@@ -57,9 +57,9 @@ bool World::isObstacleArea(const Obstacle& obstacle) const
 
 bool World::isObstacleArea(int x, int y) const
 {
-    for(unsigned int i = 0; i < obstacles.size(); i++)
+    for(unsigned int i = 0; i < obstacles_.size(); i++)
     {
-        if(obstacles.at(i)->isInArea(x, y))
+        if(obstacles_.at(i)->isInArea(x, y))
             return true;
     }
     return false;
@@ -69,10 +69,10 @@ std::vector<Geo::Line> World::getEdgeList() const
 {
     std::vector<Geo::Line> edge_list;
 
-    edge_list.push_back(Geo::Line(      0,        0,       0, height-1 ));  // 左
-    edge_list.push_back(Geo::Line(      0, height-1, width-1, height-1 ));  // 下
-    edge_list.push_back(Geo::Line(width-1, height-1, width-1,        0 ));  // 右
-    edge_list.push_back(Geo::Line(width-1,        0,       0,        0 ));  // 上
+    edge_list.push_back(Geo::Line(       0,         0,        0, height_-1 ));  // 左
+    edge_list.push_back(Geo::Line(       0, height_-1, width_-1, height_-1 ));  // 下
+    edge_list.push_back(Geo::Line(width_-1, height_-1, width_-1,         0 ));  // 右
+    edge_list.push_back(Geo::Line(width_-1,         0,        0,         0 ));  // 上
 
     return edge_list;
 }
@@ -112,9 +112,9 @@ int World::getDistance(int x, int y, int angle) const
 
     int min_dist = getDistToEdge(x, y, angle);
 
-    for(unsigned int i = 0; i < obstacles.size(); i++)
+    for(unsigned int i = 0; i < obstacles_.size(); i++)
     {
-        int dist = obstacles.at(i)->getDistance(x, y, angle);
+        int dist = obstacles_.at(i)->getDistance(x, y, angle);
 
         if(dist != INVALID_DISTANCE && dist < min_dist)
             min_dist = dist;
@@ -125,7 +125,7 @@ int World::getDistance(int x, int y, int angle) const
 
 bool World::isValidPosition(int x, int y) const
 {
-    return ( 0 <= x && x < width ) && ( 0 <= y && y < height );
+    return ( 0 <= x && x < width_ ) && ( 0 <= y && y < height_ );
 }
 
 bool World::isValidPosition(const Geo::Point& p) const
@@ -135,5 +135,5 @@ bool World::isValidPosition(const Geo::Point& p) const
 
 int World::getMaxLength() const
 {
-    return static_cast<int>( Geo::Point(width, height).length() );
+    return static_cast<int>( Geo::Point(width_, height_).length() );
 }

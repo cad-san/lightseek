@@ -10,10 +10,10 @@
 class World
 {
 private:
-    int width;
-    int height;
+    int width_;
+    int height_;
 
-    std::vector< ObstaclePtr > obstacles;
+    std::vector< ObstaclePtr > obstacles_;
 
     std::vector<Geo::Line> getEdgeList() const;
 
