@@ -5,14 +5,14 @@
 class MockDistSensor : public DistSensor
 {
 private:
-    int curr_dist;
-    int dummy_dist;
+    int curr_dist_;
+    int dummy_dist_;
 
 public:
     MockDistSensor()
     {
-        curr_dist = INVALID_DISTANCE;
-        dummy_dist = INVALID_DISTANCE;
+        curr_dist_ = INVALID_DISTANCE;
+        dummy_dist_ = INVALID_DISTANCE;
     }
 
     ~MockDistSensor()
@@ -21,23 +21,23 @@ public:
 
     void init()
     {
-        curr_dist = INVALID_DISTANCE;
-        dummy_dist = INVALID_DISTANCE;
+        curr_dist_ = INVALID_DISTANCE;
+        dummy_dist_ = INVALID_DISTANCE;
     }
 
     void step()
     {
-        curr_dist = dummy_dist;
+        curr_dist_ = dummy_dist_;
     }
 
     int getDistance() const
     {
-        return curr_dist;
+        return curr_dist_;
     }
 
     void setDummyDistance(int dummy_dist)
     {
-        this->dummy_dist = dummy_dist;
+        this->dummy_dist_ = dummy_dist;
     }
 };
 

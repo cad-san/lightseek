@@ -8,8 +8,8 @@ class DistSensor : public SensorController
 public:
     static const int INVALID_DISTANCE = -1;
 
-    DistSensor() {};
-    virtual ~DistSensor() {};
+    DistSensor() {}
+    virtual ~DistSensor() {}
     virtual int getDistance() const = 0;
 };
 

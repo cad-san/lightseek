@@ -7,7 +7,7 @@
 class VirtualAction : public Action
 {
 private:
-    RobotPtr robot;
+    RobotPtr robot_;
 
 public:
     VirtualAction(const RobotPtr& robot);

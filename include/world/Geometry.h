@@ -25,8 +25,8 @@ public:
 class Line
 {
 private:
-    Point p_s;
-    Point p_e;
+    Point p_s_;
+    Point p_e_;
 public:
     Line();
     Line( const type& x_s, const type& y_s,

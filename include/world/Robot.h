@@ -9,12 +9,12 @@ class Robot
 private:
     typedef boost::mutex::scoped_lock lock;
 
-    int x;
-    int y;
-    int angle;
+    int x_;
+    int y_;
+    int angle_;
 
-    WorldPtr world;
-    mutable boost::mutex sync_mutex;
+    WorldPtr world_;
+    mutable boost::mutex sync_mutex_;
 
 public:
 

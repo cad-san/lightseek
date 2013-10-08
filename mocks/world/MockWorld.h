@@ -7,19 +7,19 @@
 class MockWorld : public World
 {
 private:
-    int dummy_dist;
+    int dummy_dist_;
 
 public:
     MockWorld()
     {
-        this->dummy_dist = INVALID_DISTANCE;
+        this->dummy_dist_ = INVALID_DISTANCE;
     }
 
-    virtual ~MockWorld() {};
+    virtual ~MockWorld() {}
 
     void setDummyDistance(int dummy_dist)
     {
-        this->dummy_dist = dummy_dist;
+        this->dummy_dist_ = dummy_dist;
     }
 
     int getDistance(int x, int y, int angle) const
@@ -30,7 +30,7 @@ public:
             .withParameter("y", y)
             .withParameter("angle", angle);
 
-        return this->dummy_dist;
+        return this->dummy_dist_;
     }
 
     void setExpectionOfGetDistance(int x, int y, int angle)

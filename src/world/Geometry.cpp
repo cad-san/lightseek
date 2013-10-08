@@ -11,8 +11,8 @@ Point::Point() : std::complex<type>(0, 0)
 {
 }
 
-Point::Point( const type& x, const type& y)
-    : std::complex<type>(x, y)
+Point::Point( const type& x_coord, const type& y_coord)
+    : std::complex<type>(x_coord, y_coord)
 {
 }
 
@@ -40,44 +40,44 @@ type Point::length(void) const
     return Geo::length(*this);
 }
 
-Line::Line() : p_s(0, 0), p_e(0, 0)
+Line::Line() : p_s_(0, 0), p_e_(0, 0)
 {
 }
 
 Line::Line( const type& x_s, const type& y_s,
             const type& x_e, const type& y_e )
-    : p_s(x_s, y_s), p_e(x_e, y_e)
+    : p_s_(x_s, y_s), p_e_(x_e, y_e)
 {
 }
 
 Line::Line( const Point& p_s, const Point& p_e )
-    : p_s(p_s), p_e(p_e)
+    : p_s_(p_s), p_e_(p_e)
 {
 }
 
-Line::Line( const Point& p_s, const type& length, const type& radian)
-    : p_s(p_s), p_e(p_s + std::polar(length, radian))
+Line::Line( const Point& p_s, const type& rho, const type& theta)
+    : p_s_(p_s), p_e_(p_s + std::polar(rho, theta))
 {
 }
 
 Point Line::s() const
 {
-    return p_s;
+    return p_s_;
 }
 
 Point Line::e() const
 {
-    return p_e;
+    return p_e_;
 }
 
 type Line::length() const
 {
-    return Geo::distance(this->p_s, this->p_e);
+    return Geo::distance(this->p_s_, this->p_e_);
 }
 
 type Line::angle() const
 {
-    return Geo::angle(this->p_s, this->p_e);
+    return Geo::angle(this->p_s_, this->p_e_);
 }
 
 Point polar(const type& rho, const type& theta)

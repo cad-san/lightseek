@@ -11,10 +11,10 @@ class VirtualDistSensor : public DistSensor
 private:
     typedef boost::mutex::scoped_lock lock;
 
-    RobotPtr robot;
-    int distance;
+    RobotPtr robot_;
+    int distance_;
 
-    mutable boost::mutex sync_mutex;
+    mutable boost::mutex sync_mutex_;
 
 public:
     VirtualDistSensor(const RobotPtr& robot);

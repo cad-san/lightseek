@@ -10,12 +10,12 @@
 class World
 {
 private:
-    int width;
-    int height;
+    int width_;
+    int height_;
 
-    std::vector< ObstaclePtr > obstacles;
+    std::vector< ObstaclePtr > obstacles_;
 
-    Geo::Line getEdge(int index) const;
+    std::vector<Geo::Line> getEdgeList() const;
 
 public:
     static const int INVALID_COORD = -1;
@@ -30,6 +30,7 @@ public:
 
     int getMaxLength() const;
     bool isValidPosition(int x, int y) const;
+    bool isValidPosition(const Geo::Point& p) const;
 
     bool addObstacle(const ObstaclePtr& obstacle);
     bool isObstacleArea(int x, int y) const;
