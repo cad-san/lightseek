@@ -1,8 +1,8 @@
 #include "VirtualDistSensor.h"
 
-VirtualDistSensor::VirtualDistSensor(const RobotPtr& robot) : robot(robot)
+VirtualDistSensor::VirtualDistSensor(const RobotPtr& robot) : robot_(robot)
 {
-    this->distance = INVALID_DISTANCE;
+    this->distance_ = INVALID_DISTANCE;
 }
 
 VirtualDistSensor::~VirtualDistSensor()
@@ -11,24 +11,24 @@ VirtualDistSensor::~VirtualDistSensor()
 
 void VirtualDistSensor::init()
 {
-    lock lk(sync_mutex);
+    lock lk(sync_mutex_);
 
-    this->distance = INVALID_DISTANCE;
+    this->distance_ = INVALID_DISTANCE;
 
-    if(robot)
-        robot->init();
+    if(robot_)
+        robot_->init();
 }
 
 void VirtualDistSensor::step()
 {
-    lock lk(sync_mutex);
-    if(robot)
-        distance = robot->getDistance();
+    lock lk(sync_mutex_);
+    if(robot_)
+        distance_ = robot_->getDistance();
 }
 
 int VirtualDistSensor::getDistance() const
 {
-    lock lk(sync_mutex);
-    return distance;
+    lock lk(sync_mutex_);
+    return distance_;
 }
 
