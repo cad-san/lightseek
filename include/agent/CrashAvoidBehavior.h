@@ -8,9 +8,9 @@
 class CrashAvoidBehavior : public Behavior
 {
 private:
-    int sensed_dist;
-    DistSensorPtr sensor;
-    ActionPtr action;
+    int sensed_dist_;
+    DistSensorPtr sensor_;
+    ActionPtr action_;
 public:
     CrashAvoidBehavior(const unsigned int behavior_id,
                        const DistSensorPtr& sensor_ptr, const ActionPtr& action_ptr);
