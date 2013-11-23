@@ -17,7 +17,10 @@ static WorldPtr createWorld()
 
 static RobotPtr createRobot(WorldPtr world)
 {
-    return boost::make_shared<Robot>(world);
+    RobotPtr robot = boost::make_shared<Robot>(world);
+    robot->setPosition(250,250);
+    robot->setAngle(0);
+    return robot;
 }
 
 int main(int argc, char* argv[])

@@ -26,6 +26,7 @@ void WorldWidget::paintEvent(QPaintEvent* event)
 
     paintField(painter);
     paintObjects(painter);
+    paintRobot(painter);
 }
 
 void WorldWidget::paintField(QPainter& painter)
@@ -59,6 +60,44 @@ void WorldWidget::paintObjects(QPainter& painter)
         painter.drawRect(x, y, w, h);
         ++it;
     }
+}
+
+void WorldWidget::paintRobot(QPainter& painter)
+{
+    if(!robot_model_)
+        return;
+
+    int x, y, angle;
+    robot_model_->getPosition(&x, &y);
+    robot_model_->getAngle(&angle);
+
+    //アンチエイリアスセット
+    painter.setRenderHint(QPainter::Antialiasing, true);
+    painter.setPen(QPen(Qt::black, 4));
+    painter.setBrush(Qt::white);
+
+    // 円を書く
+    painter.drawEllipse(x - 15, y - 15, 30, 30);
+
+    // Angleを示す矢印を書く
+    Geo::Point anchor = Geo::Line( Geo::Point(x, y), 30, Geo::convert_radian(angle) ).e();
+    const Geo::Point points[3] = {
+        anchor,
+        Geo::Line( anchor, 10, Geo::convert_radian((angle + 30 + 180)) ).e(),
+        Geo::Line( anchor, 10, Geo::convert_radian((angle - 30 + 180)) ).e(),
+    };
+
+    QPoint qpoints[3];
+    for(int i = 0; i < 3; i++)
+    {
+        qpoints[i] = QPoint(points[i].x(), points[i].y());
+    }
+
+    painter.setRenderHint(QPainter::Antialiasing, true);
+    painter.setPen(QPen(Qt::black, 1));
+    painter.setBrush(Qt::black);
+
+    painter.drawPolygon(qpoints, 3, Qt::WindingFill);
 }
 
 void WorldWidget::setWorldModel(const WorldPtr& world_ptr)
