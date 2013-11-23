@@ -28,7 +28,9 @@ public:
     virtual int getDistance(int x, int y, int angle) const;
     virtual int getDistToEdge(int x, int y, int angle) const;
 
+    void getDimension(int* w, int* h) const;
     int getMaxLength() const;
+
     bool isValidPosition(int x, int y) const;
     bool isValidPosition(const Geo::Point& p) const;
 
