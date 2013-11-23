@@ -14,9 +14,19 @@ public:
     void setWorldModel(const WorldPtr& world_ptr);
     void setRobotModel(const RobotPtr& robot_ptr);
 
+    QSize sizeHint() const;
+
 private:
     WorldPtr world_model_;
     RobotPtr robot_model_;
+
+protected:
+    void paintEvent(QPaintEvent* event);
+
+private:
+    void paintField(QPainter& painter);
+    void paintObjects(QPainter& painter);
+    void paintRobot(QPainter& painter);
 };
 
 #endif
