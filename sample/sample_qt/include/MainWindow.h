@@ -11,6 +11,9 @@ public:
     MainWindow();
     virtual ~MainWindow();
 
+    void setWorldModel(const WorldPtr& world_ptr);
+    void setRobotModel(const RobotPtr& robot_ptr);
+
 private:
     void createWidgets();
 
