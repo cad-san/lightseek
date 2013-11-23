@@ -5,11 +5,13 @@ INCLUDEPATH += include
 
 # Input
 HEADERS += \
-    include/MainWindow.h
+    include/MainWindow.h \
+    include/WorldWidget.h
 
 SOURCES += \
     src/main.cpp \
-    src/MainWindow.cpp
+    src/MainWindow.cpp \
+    src/WorldWidget.cpp
 
 # Generation
 MOC_DIR = moc
