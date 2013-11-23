@@ -45,6 +45,11 @@ bool World::addObstacle(const ObstaclePtr& new_obstacle)
     return true;
 }
 
+const std::vector< ObstaclePtr >& World::getObstacleList() const
+{
+    return obstacles_;
+}
+
 bool World::isObstacleArea(const Obstacle& obstacle) const
 {
     for(unsigned int i = 0; i < obstacles_.size(); i++)
