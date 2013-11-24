@@ -52,7 +52,7 @@ void MainWindow::init()
 {
     emit world_widget_->init();
 
-    if(agent_)
+    if(agent_ && !agent_->isActive())
         agent_->init();
 
     if(env_)
@@ -63,8 +63,11 @@ void MainWindow::start()
 {
     emit world_widget_->start();
 
-    if(agent_)
+    if(agent_ && !agent_->isActive())
+    {
+        agent_->init();
         agent_->start();
+    }
 
     if(env_)
         env_->start();
@@ -74,7 +77,7 @@ void MainWindow::stop()
 {
     emit world_widget_->stop();
 
-    if(agent_)
+    if(agent_ && agent_->isActive())
         agent_->stop();
 
     if(env_)
