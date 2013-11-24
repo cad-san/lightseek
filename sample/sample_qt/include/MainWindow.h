@@ -21,6 +21,8 @@ public:
 
 private:
     void createWidgets();
+    void createActions();
+    void createToolBars();
 
 private slots:
     void init();
@@ -30,6 +32,10 @@ private slots:
 private:
     WorldWidget *world_widget_;
     EnvironmentPtr env_;
+
+    QAction* init_act_;
+    QAction* start_act_;
+    QAction* stop_act_;
 };
 
 #endif
