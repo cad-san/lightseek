@@ -1,6 +1,7 @@
 #include "WorldWidget.h"
 
 #include <QPainter>
+#include <QTimer>
 
 const QColor FLOOR_COLOR(51,51,51);
 const QColor EDGE_COLOR(174,238,0);
@@ -10,10 +11,13 @@ const QColor OBJECT_COLOR(174,238,0);
 
 WorldWidget::WorldWidget(QWidget* parent) : QWidget(parent)
 {
+    timer_ = new QTimer();
+    connect(timer_, SIGNAL(timeout()), this, SLOT(onTimer()));
 }
 
 WorldWidget::~WorldWidget()
 {
+    delete timer_;
 }
 
 QSize WorldWidget::sizeHint() const
@@ -107,6 +111,29 @@ void WorldWidget::paintRobot(QPainter& painter)
     painter.setBrush(ARROW_COLOR);
 
     painter.drawPolygon(qpoints, 3, Qt::WindingFill);
+}
+
+void WorldWidget::onTimer()
+{
+    update();
+}
+
+void WorldWidget::init()
+{
+    if(timer_->isActive())
+        timer_->stop();
+}
+
+void WorldWidget::start()
+{
+    if(!timer_->isActive())
+        timer_->start(50);
+}
+
+void WorldWidget::stop()
+{
+    if(timer_->isActive())
+        timer_->stop();
 }
 
 void WorldWidget::setWorldModel(const WorldPtr& world_ptr)

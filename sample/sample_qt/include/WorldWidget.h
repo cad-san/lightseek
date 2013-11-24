@@ -16,9 +16,17 @@ public:
 
     QSize sizeHint() const;
 
+public slots:
+    void init();
+    void start();
+    void stop();
+    void onTimer();
+
 private:
     WorldPtr world_model_;
     RobotPtr robot_model_;
+
+    QTimer* timer_;
 
 protected:
     void paintEvent(QPaintEvent* event);

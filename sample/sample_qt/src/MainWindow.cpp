@@ -50,6 +50,8 @@ void MainWindow::createToolBars()
 
 void MainWindow::init()
 {
+    emit world_widget_->init();
+
     if(agent_)
         agent_->init();
 
@@ -59,6 +61,8 @@ void MainWindow::init()
 
 void MainWindow::start()
 {
+    emit world_widget_->start();
+
     if(agent_)
         agent_->start();
 
@@ -68,6 +72,8 @@ void MainWindow::start()
 
 void MainWindow::stop()
 {
+    emit world_widget_->stop();
+
     if(agent_)
         agent_->stop();
 
