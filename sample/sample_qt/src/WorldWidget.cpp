@@ -2,6 +2,12 @@
 
 #include <QPainter>
 
+const QColor FLOOR_COLOR(51,51,51);
+const QColor EDGE_COLOR(174,238,0);
+const QColor ROBOT_COLOR(1,176,240);
+const QColor ARROW_COLOR(255,53,139);
+const QColor OBJECT_COLOR(174,238,0);
+
 WorldWidget::WorldWidget(QWidget* parent) : QWidget(parent)
 {
 }
@@ -38,8 +44,8 @@ void WorldWidget::paintField(QPainter& painter)
     int w, h;
     world_model_->getDimension(&w, &h);
 
-    painter.setPen(QPen(Qt::black, 4));
-    painter.setBrush(Qt::white);
+    painter.setPen(QPen(EDGE_COLOR, 4));
+    painter.setBrush(FLOOR_COLOR);
     painter.drawRect(0, 0, w, h);
 }
 
@@ -47,6 +53,9 @@ void WorldWidget::paintObjects(QPainter& painter)
 {
     if(!world_model_)
         return;
+
+    painter.setPen(QPen(OBJECT_COLOR, 2));
+    painter.setBrush(FLOOR_COLOR);
 
     /* オブジェクトの描画 */
     std::vector<ObstaclePtr> obstacles = world_model_->getObstacleList();
@@ -73,8 +82,8 @@ void WorldWidget::paintRobot(QPainter& painter)
 
     //アンチエイリアスセット
     painter.setRenderHint(QPainter::Antialiasing, true);
-    painter.setPen(QPen(Qt::black, 4));
-    painter.setBrush(Qt::white);
+    painter.setPen(QPen(ROBOT_COLOR, 4));
+    painter.setBrush(FLOOR_COLOR);
 
     // 円を書く
     painter.drawEllipse(x - 15, y - 15, 30, 30);
@@ -94,8 +103,8 @@ void WorldWidget::paintRobot(QPainter& painter)
     }
 
     painter.setRenderHint(QPainter::Antialiasing, true);
-    painter.setPen(QPen(Qt::black, 1));
-    painter.setBrush(Qt::black);
+    painter.setPen(QPen(ARROW_COLOR, 1));
+    painter.setBrush(ARROW_COLOR);
 
     painter.drawPolygon(qpoints, 3, Qt::WindingFill);
 }
