@@ -28,13 +28,17 @@ public:
     virtual int getDistance(int x, int y, int angle) const;
     virtual int getDistToEdge(int x, int y, int angle) const;
 
+    void getDimension(int* w, int* h) const;
     int getMaxLength() const;
+
     bool isValidPosition(int x, int y) const;
     bool isValidPosition(const Geo::Point& p) const;
 
     bool addObstacle(const ObstaclePtr& obstacle);
     bool isObstacleArea(int x, int y) const;
     bool isObstacleArea(const Obstacle& obstacle) const;
+
+    const std::vector<ObstaclePtr>& getObstacleList() const;
 };
 
 typedef boost::shared_ptr<World> WorldPtr;

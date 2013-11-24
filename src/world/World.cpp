@@ -45,6 +45,11 @@ bool World::addObstacle(const ObstaclePtr& new_obstacle)
     return true;
 }
 
+const std::vector< ObstaclePtr >& World::getObstacleList() const
+{
+    return obstacles_;
+}
+
 bool World::isObstacleArea(const Obstacle& obstacle) const
 {
     for(unsigned int i = 0; i < obstacles_.size(); i++)
@@ -131,6 +136,15 @@ bool World::isValidPosition(int x, int y) const
 bool World::isValidPosition(const Geo::Point& p) const
 {
     return isValidPosition( static_cast<int>(p.x()), static_cast<int>(p.y()) );
+}
+
+void World::getDimension(int* w, int* h) const
+{
+    if(w == NULL || h == NULL)
+        return;
+
+    *w = this->width_;
+    *h = this->height_;
 }
 
 int World::getMaxLength() const
