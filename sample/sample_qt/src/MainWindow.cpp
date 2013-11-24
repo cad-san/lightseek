@@ -50,18 +50,27 @@ void MainWindow::createToolBars()
 
 void MainWindow::init()
 {
+    if(agent_)
+        agent_->init();
+
     if(env_)
         env_->init();
 }
 
 void MainWindow::start()
 {
+    if(agent_)
+        agent_->start();
+
     if(env_)
         env_->start();
 }
 
 void MainWindow::stop()
 {
+    if(agent_)
+        agent_->stop();
+
     if(env_)
         env_->stop();
 }
@@ -79,4 +88,9 @@ void MainWindow::setRobotModel(const RobotPtr& robot_ptr)
 void MainWindow::setEnvironment(const EnvironmentPtr& env_ptr)
 {
     env_ = env_ptr;
+}
+
+void MainWindow::setAgent(const AgentPtr& agent_ptr)
+{
+    agent_ = agent_ptr;
 }
