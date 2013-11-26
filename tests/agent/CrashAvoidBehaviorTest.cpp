@@ -66,3 +66,16 @@ TEST(CrashAvoidBehavior, Perform)
 
     mock().checkExpectations();
 }
+
+TEST(CrashAvoidBehavior, Turn45Degree)
+{
+    sensor->setDummyDistance(25);
+    sensor->step();
+
+    action->setExpectionOfRotate(45, true);
+
+    behavior->sensing();
+    behavior->perform();
+
+    mock().checkExpectations();
+}

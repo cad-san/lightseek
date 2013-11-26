@@ -28,7 +28,8 @@ void CrashAvoidBehavior::perform()
     if(!isActive())
         return;
 
-    action_->rotate(90 * (1 - sensed_dist_ / THRESHOLD_DIST) );
+    double ratio = 1.0 - static_cast<double>(sensed_dist_) / THRESHOLD_DIST;
+    action_->rotate(static_cast<int>(90.0 * ratio));
 }
 
 bool CrashAvoidBehavior::isActive() const
