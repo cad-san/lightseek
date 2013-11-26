@@ -10,7 +10,7 @@ TEST_GROUP(CrashAvoidBehavior)
 {
     MockDistSensorPtr sensor;
     MockActionPtr action;
-    Behavior* behavior;
+    CrashAvoidBehavior* behavior;
 
     void setup()
     {
@@ -64,5 +64,32 @@ TEST(CrashAvoidBehavior, Perform)
     behavior->sensing();
     behavior->perform();
 
+    mock().checkExpectations();
+}
+
+TEST(CrashAvoidBehavior, Turn45Degree)
+{
+    sensor->setDummyDistance(25);
+    sensor->step();
+
+    action->setExpectionOfRotate(45, true);
+
+    behavior->sensing();
+    behavior->perform();
+
+    mock().checkExpectations();
+}
+
+TEST(CrashAvoidBehavior, ChangeThreshold)
+{
+    behavior->setThreshold(100);
+
+    sensor->setDummyDistance(50);
+    sensor->step();
+    behavior->sensing();
+    CHECK_EQUAL(true, behavior->isActive());
+
+    action->setExpectionOfRotate(45, true);
+    behavior->perform();
     mock().checkExpectations();
 }

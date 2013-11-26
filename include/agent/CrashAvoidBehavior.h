@@ -9,6 +9,7 @@ class CrashAvoidBehavior : public Behavior
 {
 private:
     int sensed_dist_;
+    int threshold_dist_;
     DistSensorPtr sensor_;
     ActionPtr action_;
 public:
@@ -21,6 +22,8 @@ public:
     virtual void perform();
 
     virtual bool isActive() const;
+
+    void setThreshold(int distance);
 };
 
 #endif

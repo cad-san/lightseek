@@ -10,7 +10,7 @@ TEST_GROUP(GoStraightBehavior)
 {
     MockDistSensorPtr sensor;
     MockActionPtr action;
-    Behavior* behavior;
+    GoStraightBehavior* behavior;
 
     void setup()
     {
@@ -36,7 +36,7 @@ TEST(GoStraightBehavior, Init)
 
 TEST(GoStraightBehavior, ActiveAfterSensing)
 {
-    sensor->setDummyDistance(50);
+    sensor->setDummyDistance(25);
     sensor->step();
 
     behavior->sensing();
@@ -46,7 +46,7 @@ TEST(GoStraightBehavior, ActiveAfterSensing)
 
 TEST(GoStraightBehavior, NotActiveAfterSensing)
 {
-    sensor->setDummyDistance(49);
+    sensor->setDummyDistance(24);
     sensor->step();
 
     behavior->sensing();
@@ -56,7 +56,7 @@ TEST(GoStraightBehavior, NotActiveAfterSensing)
 
 TEST(GoStraightBehavior, Perform)
 {
-    sensor->setDummyDistance(100);
+    sensor->setDummyDistance(75);
     sensor->step();
 
     action->setExpectionOfMoveFront(25, true);
@@ -64,5 +64,20 @@ TEST(GoStraightBehavior, Perform)
     behavior->sensing();
     behavior->perform();
 
+    mock().checkExpectations();
+}
+
+TEST(GoStraightBehavior, ChangeThreshold)
+{
+    behavior->setThreshold(50);
+
+    sensor->setDummyDistance(100);
+    sensor->step();
+
+    behavior->sensing();
+    CHECK_EQUAL(true, behavior->isActive());
+
+    action->setExpectionOfMoveFront(25, true);
+    behavior->perform();
     mock().checkExpectations();
 }
