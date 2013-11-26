@@ -1,6 +1,6 @@
 #include "GoStraightBehavior.h"
 
-static const int THRESHOLD_DIST = 50;
+static const int THRESHOLD_DIST = 25;
 
 GoStraightBehavior::GoStraightBehavior(const unsigned int behavior_id,
                                        const DistSensorPtr& sensor_ptr, const ActionPtr& action_ptr)
