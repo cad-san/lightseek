@@ -4,6 +4,8 @@
 #include "Robot.h"
 #include "MockWorld.h"
 
+#include <boost/make_shared.hpp>
+
 TEST_GROUP(Robot)
 {
     MockWorldPtr worldPtr;
@@ -11,7 +13,7 @@ TEST_GROUP(Robot)
 
     void setup()
     {
-        worldPtr = MockWorldPtr(new MockWorld());
+        worldPtr = boost::make_shared<MockWorld>();
         robot = new Robot(worldPtr);
     }
 

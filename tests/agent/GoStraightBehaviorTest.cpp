@@ -4,6 +4,8 @@
 #include "MockDistSensor.h"
 #include "MockAction.h"
 
+#include <boost/make_shared.hpp>
+
 static const unsigned int dummy_id = 0x01;
 
 TEST_GROUP(GoStraightBehavior)
@@ -14,8 +16,8 @@ TEST_GROUP(GoStraightBehavior)
 
     void setup()
     {
-        action = MockActionPtr(new MockAction());
-        sensor = MockDistSensorPtr(new MockDistSensor());
+        action = boost::make_shared<MockAction>();
+        sensor = boost::make_shared<MockDistSensor>();
         behavior = new GoStraightBehavior(dummy_id, sensor, action);
 
         sensor->init();
