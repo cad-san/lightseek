@@ -100,3 +100,11 @@ TEST(Robot, Rotate)
     robot->getAngle(&angle);
     LONGS_EQUAL(90, angle);
 }
+
+TEST(Robot, ChangeSize)
+{
+    Robot robot(worldPtr, 10);
+    int radius;
+    robot.getSize(&radius);
+    LONGS_EQUAL(10, radius);
+}

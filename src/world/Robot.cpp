@@ -1,11 +1,24 @@
 #include "Robot.h"
 #include "Geometry.h"
 
+static const int DEFAULT_RADIUS = 15;
+
 Robot::Robot(const WorldPtr& world_ptr) : world_(world_ptr)
 {
     this->x_ = World::INVALID_COORD;
     this->y_ = World::INVALID_COORD;
     this->angle_ = 0;
+
+    this->radius_ = DEFAULT_RADIUS;
+}
+
+Robot::Robot(const WorldPtr& world_ptr, int radius) : world_(world_ptr)
+{
+    this->x_ = World::INVALID_COORD;
+    this->y_ = World::INVALID_COORD;
+    this->angle_ = 0;
+
+    this->radius_ = radius;
 }
 
 Robot::~Robot()
@@ -39,6 +52,13 @@ void Robot::getAngle(int* angle) const
 
     lock lk(sync_mutex_);
     *angle = this->angle_;
+}
+
+void Robot::getSize(int* radius) const
+{
+    if(radius == NULL)
+        return;
+    *radius = this->radius_;
 }
 
 bool Robot::setPosition(const int& x, const int& y)

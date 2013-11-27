@@ -13,12 +13,14 @@ private:
     int y_;
     int angle_;
 
+    int radius_;
     WorldPtr world_;
     mutable boost::mutex sync_mutex_;
 
 public:
 
     Robot(const WorldPtr& world_ptr);
+    Robot(const WorldPtr& world_ptr, int radius);
     virtual ~Robot();
 
     void init();
@@ -30,6 +32,7 @@ public:
 
     void getPosition(int* x, int* y) const;
     void getAngle(int* angle) const;
+    void getSize(int* radius) const;
 
     bool moveFront(const int distance);
     bool rotate(const int angle);
