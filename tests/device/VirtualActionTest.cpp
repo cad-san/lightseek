@@ -4,6 +4,8 @@
 #include "MockWorld.h"
 #include "VirtualAction.h"
 
+#include <boost/make_shared.hpp>
+
 TEST_GROUP(VirtualAction)
 {
     MockWorldPtr worldPtr;
@@ -12,8 +14,8 @@ TEST_GROUP(VirtualAction)
 
     void setup()
     {
-        worldPtr = MockWorldPtr(new MockWorld());
-        robotPtr = RobotPtr(new Robot(worldPtr));
+        worldPtr = boost::make_shared<MockWorld>();
+        robotPtr = boost::make_shared<Robot>(worldPtr);
         action = new VirtualAction(robotPtr);
     }
 
