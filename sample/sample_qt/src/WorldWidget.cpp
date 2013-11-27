@@ -84,20 +84,23 @@ void WorldWidget::paintRobot(QPainter& painter)
     robot_model_->getPosition(&x, &y);
     robot_model_->getAngle(&angle);
 
+    int radius;
+    robot_model_->getSize(&radius);
+
     //アンチエイリアスセット
     painter.setRenderHint(QPainter::Antialiasing, true);
     painter.setPen(QPen(ROBOT_COLOR, 4));
     painter.setBrush(FLOOR_COLOR);
 
     // 円を書く
-    painter.drawEllipse(x - 15, y - 15, 30, 30);
+    painter.drawEllipse(x - radius, y - radius, radius * 2, radius * 2);
 
     // Angleを示す矢印を書く
-    Geo::Point anchor = Geo::Line( Geo::Point(x, y), 30, Geo::convert_radian(angle) ).e();
+    Geo::Point anchor = Geo::Point(x, y) + Geo::polar(radius * 2, Geo::convert_radian(angle));
     const Geo::Point points[3] = {
         anchor,
-        Geo::Line( anchor, 10, Geo::convert_radian((angle + 30 + 180)) ).e(),
-        Geo::Line( anchor, 10, Geo::convert_radian((angle - 30 + 180)) ).e(),
+        anchor + Geo::polar(10, Geo::convert_radian(angle + 30 + 180)),
+        anchor + Geo::polar(10, Geo::convert_radian(angle - 30 + 180)),
     };
 
     QPoint qpoints[3];
