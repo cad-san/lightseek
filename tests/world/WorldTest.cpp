@@ -3,6 +3,8 @@
 #include "World.h"
 #include "MockObstacle.h"
 
+#include <boost/make_shared.hpp>
+
 static const int WORLD_WIDTH = 200;
 static const int WORLD_HEIGHT = 200;
 
@@ -35,7 +37,7 @@ TEST(World, Init)
 
 TEST(World, AddObstacle)
 {
-    MockObstaclePtr obstacle = MockObstaclePtr(new MockObstacle(0, 0, 50, 50));
+    MockObstaclePtr obstacle = boost::make_shared<MockObstacle>(0, 0, 50, 50);
 
     CHECK(world->addObstacle(obstacle));
     CHECK(world->isObstacleArea(25,25));
@@ -44,8 +46,8 @@ TEST(World, AddObstacle)
 TEST(World, AddInvalidObstacle)
 {
     MockObstaclePtr no_osbtacle;
-    MockObstaclePtr invalid_min = MockObstaclePtr(new MockObstacle(X_MIN - 1, Y_MIN - 1, WORLD_WIDTH, WORLD_HEIGHT));
-    MockObstaclePtr invalid_max = MockObstaclePtr(new MockObstacle(X_MIN, Y_MIN, WORLD_WIDTH + 1, WORLD_HEIGHT + 1));
+    MockObstaclePtr invalid_min = boost::make_shared<MockObstacle>(X_MIN - 1, Y_MIN - 1, WORLD_WIDTH, WORLD_HEIGHT);
+    MockObstaclePtr invalid_max = boost::make_shared<MockObstacle>(X_MIN, Y_MIN, WORLD_WIDTH + 1, WORLD_HEIGHT + 1);
 
     CHECK_EQUAL(false, world->addObstacle(no_osbtacle));
     CHECK_EQUAL(false, world->addObstacle(invalid_min));
@@ -54,9 +56,9 @@ TEST(World, AddInvalidObstacle)
 
 TEST(World, AddObstacleOverlap)
 {
-    MockObstaclePtr obst_1 = MockObstaclePtr(new MockObstacle(100, 100, 50, 50));
-    MockObstaclePtr obst_2 = MockObstaclePtr(new MockObstacle(149, 100, 50, 50));
-    MockObstaclePtr obst_3 = MockObstaclePtr(new MockObstacle(150, 100, 50, 50));
+    MockObstaclePtr obst_1 = boost::make_shared<MockObstacle>(100, 100, 50, 50);
+    MockObstaclePtr obst_2 = boost::make_shared<MockObstacle>(149, 100, 50, 50);
+    MockObstaclePtr obst_3 = boost::make_shared<MockObstacle>(150, 100, 50, 50);
 
     CHECK_EQUAL( true, world->addObstacle(obst_1));
     CHECK_EQUAL(false, world->addObstacle(obst_2));
@@ -81,7 +83,7 @@ TEST(World, GetDistanceNoObsacleAngled)
 
 TEST(World, GetDistance)
 {
-    MockObstaclePtr obstacle = MockObstaclePtr(new MockObstacle(100, 0, 100, 100));
+    MockObstaclePtr obstacle = boost::make_shared<MockObstacle>(100, 0, 100, 100);
 
     obstacle->setExpectionOfGetDistance(50, 50, 0);
     obstacle->setDummyDistance(50);
@@ -92,7 +94,7 @@ TEST(World, GetDistance)
 
 TEST(World, GetDistanceNoIntersection)
 {
-    MockObstaclePtr obstacle = MockObstaclePtr(new MockObstacle(0, 0, 50, 50));
+    MockObstaclePtr obstacle = boost::make_shared<MockObstacle>(0, 0, 50, 50);
 
     obstacle->setExpectionOfGetDistance(100, 100, 0);
     obstacle->setDummyDistance(World::INVALID_DISTANCE);
