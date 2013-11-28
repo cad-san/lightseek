@@ -21,7 +21,7 @@ void GoStraightBehavior::init()
 
 void GoStraightBehavior::sensing()
 {
-    sensed_dist_ = sensor_->getDistance();
+    sensed_dist_ = sensor_->getFrontDistance();
     sensed_dist_ = sensed_dist_ < 100 ? sensed_dist_ : 100;
 }
 

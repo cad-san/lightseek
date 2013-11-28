@@ -21,7 +21,7 @@ void CrashAvoidBehavior::init()
 
 void CrashAvoidBehavior::sensing()
 {
-    sensed_dist_ = sensor_->getDistance();
+    sensed_dist_ = sensor_->getFrontDistance();
 }
 
 void CrashAvoidBehavior::perform()

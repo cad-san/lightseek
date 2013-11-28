@@ -21,7 +21,7 @@ TEST(DistanceSensor, Init)
 {
     sensor->init();
 
-    LONGS_EQUAL(MockDistSensor::INVALID_DISTANCE, sensor->getDistance());
+    LONGS_EQUAL(MockDistSensor::INVALID_DISTANCE, sensor->getFrontDistance());
 }
 
 TEST(DistanceSensor, Step)
@@ -32,7 +32,7 @@ TEST(DistanceSensor, Step)
 
     sensor->step();
 
-    LONGS_EQUAL(10, sensor->getDistance());
+    LONGS_EQUAL(10, sensor->getFrontDistance());
 }
 
 TEST(DistanceSensor, NoStep)
@@ -41,6 +41,6 @@ TEST(DistanceSensor, NoStep)
 
     sensor->setDummyDistance(10);
 
-    LONGS_EQUAL(MockDistSensor::INVALID_DISTANCE, sensor->getDistance());
+    LONGS_EQUAL(MockDistSensor::INVALID_DISTANCE, sensor->getFrontDistance());
 }
 

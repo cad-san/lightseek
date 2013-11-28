@@ -2,7 +2,7 @@
 
 VirtualDistSensor::VirtualDistSensor(const RobotPtr& robot) : robot_(robot)
 {
-    this->distance_ = INVALID_DISTANCE;
+    this->front_dist_ = INVALID_DISTANCE;
 }
 
 VirtualDistSensor::~VirtualDistSensor()
@@ -13,7 +13,7 @@ void VirtualDistSensor::init()
 {
     lock lk(sync_mutex_);
 
-    this->distance_ = INVALID_DISTANCE;
+    this->front_dist_ = INVALID_DISTANCE;
 
     if(robot_)
         robot_->init();
@@ -23,12 +23,12 @@ void VirtualDistSensor::step()
 {
     lock lk(sync_mutex_);
     if(robot_)
-        distance_ = robot_->getFrontDistance();
+        front_dist_ = robot_->getFrontDistance();
 }
 
-int VirtualDistSensor::getDistance() const
+int VirtualDistSensor::getFrontDistance() const
 {
     lock lk(sync_mutex_);
-    return distance_;
+    return front_dist_;
 }
 

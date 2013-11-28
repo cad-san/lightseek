@@ -12,7 +12,7 @@ private:
     typedef boost::mutex::scoped_lock lock;
 
     RobotPtr robot_;
-    int distance_;
+    int front_dist_;
 
     mutable boost::mutex sync_mutex_;
 
@@ -23,7 +23,7 @@ public:
     void init();
     void step();
 
-    int getDistance() const;
+    int getFrontDistance() const;
 };
 
 #endif

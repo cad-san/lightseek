@@ -30,7 +30,7 @@ public:
         curr_dist_ = dummy_dist_;
     }
 
-    int getDistance() const
+    int getFrontDistance() const
     {
         return curr_dist_;
     }

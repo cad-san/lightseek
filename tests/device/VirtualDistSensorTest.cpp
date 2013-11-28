@@ -30,7 +30,7 @@ TEST_GROUP(VirtualDistSensor)
 
 TEST(VirtualDistSensor, Init)
 {
-    LONGS_EQUAL(VirtualDistSensor::INVALID_DISTANCE, sensor->getDistance());
+    LONGS_EQUAL(VirtualDistSensor::INVALID_DISTANCE, sensor->getFrontDistance());
 }
 
 TEST(VirtualDistSensor, Step)
@@ -47,5 +47,5 @@ TEST(VirtualDistSensor, Step)
     sensor->step();
     mock().checkExpectations();
 
-    LONGS_EQUAL(150, sensor->getDistance());
+    LONGS_EQUAL(150, sensor->getFrontDistance());
 }
