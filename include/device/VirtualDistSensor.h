@@ -13,6 +13,8 @@ private:
 
     RobotPtr robot_;
     int front_dist_;
+    int right_dist_;
+    int left_dist_;
 
     mutable boost::mutex sync_mutex_;
 
@@ -24,6 +26,9 @@ public:
     void step();
 
     int getFrontDistance() const;
+    int getLeftSideDistance() const;
+    int getRightSideDistance() const;
+
 };
 
 #endif

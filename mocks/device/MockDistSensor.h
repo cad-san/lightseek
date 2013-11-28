@@ -35,6 +35,16 @@ public:
         return curr_dist_;
     }
 
+    int getLeftSideDistance() const
+    {
+        return curr_dist_;
+    }
+
+    int getRightSideDistance() const
+    {
+        return curr_dist_;
+    }
+
     void setDummyDistance(int dummy_dist)
     {
         this->dummy_dist_ = dummy_dist;
