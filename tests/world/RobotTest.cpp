@@ -61,7 +61,7 @@ TEST(Robot, GetDistance)
     worldPtr->setExpectionOfGetDistance(50, 100, 90);
     worldPtr->setDummyDistance(100);
 
-    LONGS_EQUAL(100, robot->getDistance());
+    LONGS_EQUAL(100, robot->getFrontDistance());
     mock().checkExpectations();
 }
 

@@ -29,7 +29,7 @@ void Robot::init()
 {
 }
 
-int Robot::getDistance() const
+int Robot::getFrontDistance() const
 {
     lock lk(sync_mutex_);
     return world_->getDistance(x_, y_, angle_);

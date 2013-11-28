@@ -23,7 +23,7 @@ void VirtualDistSensor::step()
 {
     lock lk(sync_mutex_);
     if(robot_)
-        distance_ = robot_->getDistance();
+        distance_ = robot_->getFrontDistance();
 }
 
 int VirtualDistSensor::getDistance() const

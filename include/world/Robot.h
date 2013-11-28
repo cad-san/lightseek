@@ -25,7 +25,7 @@ public:
 
     void init();
 
-    int getDistance() const;
+    int getFrontDistance() const;
 
     bool setPosition(const int& x, const int& y);
     bool setAngle(const int& angle);
