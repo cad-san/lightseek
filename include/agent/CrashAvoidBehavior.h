@@ -8,8 +8,16 @@
 class CrashAvoidBehavior : public Behavior
 {
 private:
+    typedef enum {
+        ROTATE_RIGHT = 1,
+        ROTATE_LEFT  = -1
+    } RotateDirect;
+
     int sensed_dist_;
     int threshold_dist_;
+
+    RotateDirect rotate_direct_;
+
     DistSensorPtr sensor_;
     ActionPtr action_;
 public:

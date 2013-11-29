@@ -37,7 +37,7 @@ TEST(CrashAvoidBehavior, Init)
 
 TEST(CrashAvoidBehavior, ActiveAfterSensing)
 {
-    sensor->setExpectionOfGetFrontDist(0);
+    sensor->setExpectDistance(0, 100, 100);
 
     behavior->sensing();
 
@@ -47,7 +47,7 @@ TEST(CrashAvoidBehavior, ActiveAfterSensing)
 
 TEST(CrashAvoidBehavior, NotActiveAfterSensing)
 {
-    sensor->setExpectionOfGetFrontDist(50);
+    sensor->setExpectDistance(50, 100, 100);
 
     behavior->sensing();
 
@@ -57,7 +57,7 @@ TEST(CrashAvoidBehavior, NotActiveAfterSensing)
 
 TEST(CrashAvoidBehavior, Perform)
 {
-    sensor->setExpectionOfGetFrontDist(0);
+    sensor->setExpectDistance(0, 100, 100);
     action->setExpectionOfRotate(90, true);
 
     behavior->sensing();
@@ -68,7 +68,7 @@ TEST(CrashAvoidBehavior, Perform)
 
 TEST(CrashAvoidBehavior, Turn45Degree)
 {
-    sensor->setExpectionOfGetFrontDist(25);
+    sensor->setExpectDistance(25, 100, 100);
     action->setExpectionOfRotate(45, true);
 
     behavior->sensing();
@@ -81,12 +81,34 @@ TEST(CrashAvoidBehavior, ChangeThreshold)
 {
     behavior->setThreshold(100);
 
-    sensor->setExpectionOfGetFrontDist(50);
+    sensor->setExpectDistance(50, 100, 100);
     action->setExpectionOfRotate(45, true);
 
     behavior->sensing();
     behavior->perform();
 
     CHECK_EQUAL(true, behavior->isActive());
+    mock().checkExpectations();
+}
+
+TEST(CrashAvoidBehavior, TurnRight)
+{
+    sensor->setExpectDistance(0, 100, 99);
+    action->setExpectionOfRotate(-90, true);
+
+    behavior->sensing();
+    behavior->perform();
+
+    mock().checkExpectations();
+}
+
+TEST(CrashAvoidBehavior, TurnLeft)
+{
+    sensor->setExpectDistance(0, 99, 100);
+    action->setExpectionOfRotate(+90, true);
+
+    behavior->sensing();
+    behavior->perform();
+
     mock().checkExpectations();
 }

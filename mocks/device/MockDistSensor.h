@@ -75,6 +75,13 @@ public:
             .expectOneCall("GetRightSideDistance")
             .andReturnValue(dummy_dist);
     }
+
+    void setExpectDistance(int front, int left, int right)
+    {
+        setExpectionOfGetFrontDist(front);
+        setExpectionOfGetLeftSideDist(left);
+        setExpectionOfGetRightSideDist(right);
+    }
 };
 
 typedef boost::shared_ptr<MockDistSensor> MockDistSensorPtr;
