@@ -20,7 +20,6 @@ TEST_GROUP(CrashAvoidBehavior)
         sensor = boost::make_shared<MockDistSensor>();
         behavior = new CrashAvoidBehavior(dummy_id, sensor, action);
 
-        sensor->init();
         behavior->init();
     }
 
@@ -38,29 +37,27 @@ TEST(CrashAvoidBehavior, Init)
 
 TEST(CrashAvoidBehavior, ActiveAfterSensing)
 {
-    sensor->setDummyDistance(0);
-    sensor->step();
+    sensor->setExpectionOfGetFrontDist(0);
 
     behavior->sensing();
 
     CHECK_EQUAL(true, behavior->isActive());
+    mock().checkExpectations();
 }
 
 TEST(CrashAvoidBehavior, NotActiveAfterSensing)
 {
-    sensor->setDummyDistance(50);
-    sensor->step();
+    sensor->setExpectionOfGetFrontDist(50);
 
     behavior->sensing();
 
     CHECK_EQUAL(false, behavior->isActive());
+    mock().checkExpectations();
 }
 
 TEST(CrashAvoidBehavior, Perform)
 {
-    sensor->setDummyDistance(0);
-    sensor->step();
-
+    sensor->setExpectionOfGetFrontDist(0);
     action->setExpectionOfRotate(90, true);
 
     behavior->sensing();
@@ -71,9 +68,7 @@ TEST(CrashAvoidBehavior, Perform)
 
 TEST(CrashAvoidBehavior, Turn45Degree)
 {
-    sensor->setDummyDistance(25);
-    sensor->step();
-
+    sensor->setExpectionOfGetFrontDist(25);
     action->setExpectionOfRotate(45, true);
 
     behavior->sensing();
@@ -86,12 +81,12 @@ TEST(CrashAvoidBehavior, ChangeThreshold)
 {
     behavior->setThreshold(100);
 
-    sensor->setDummyDistance(50);
-    sensor->step();
-    behavior->sensing();
-    CHECK_EQUAL(true, behavior->isActive());
-
+    sensor->setExpectionOfGetFrontDist(50);
     action->setExpectionOfRotate(45, true);
+
+    behavior->sensing();
     behavior->perform();
+
+    CHECK_EQUAL(true, behavior->isActive());
     mock().checkExpectations();
 }
