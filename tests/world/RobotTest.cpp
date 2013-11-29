@@ -53,7 +53,7 @@ TEST(Robot, SetPosition)
     LONGS_EQUAL(90, angle);
 }
 
-TEST(Robot, GetDistance)
+TEST(Robot, GetFrontDistance)
 {
     robot->setPosition(50, 100);
     robot->setAngle(90);
@@ -61,7 +61,31 @@ TEST(Robot, GetDistance)
     worldPtr->setExpectionOfGetDistance(50, 100, 90);
     worldPtr->setDummyDistance(100);
 
-    LONGS_EQUAL(100, robot->getDistance());
+    LONGS_EQUAL(100, robot->getFrontDistance());
+    mock().checkExpectations();
+}
+
+TEST(Robot, GetLeftSideDistance)
+{
+    robot->setPosition(50, 100);
+    robot->setAngle(90);
+
+    worldPtr->setExpectionOfGetDistance(50, 100, 0);
+    worldPtr->setDummyDistance(100);
+
+    LONGS_EQUAL(100, robot->getLeftSideDistance());
+    mock().checkExpectations();
+}
+
+TEST(Robot, GetRightSideDistance)
+{
+    robot->setPosition(50, 100);
+    robot->setAngle(0);
+
+    worldPtr->setExpectionOfGetDistance(50, 100, 90);
+    worldPtr->setDummyDistance(100);
+
+    LONGS_EQUAL(100, robot->getRightSideDistance());
     mock().checkExpectations();
 }
 

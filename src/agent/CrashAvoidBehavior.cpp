@@ -8,6 +8,7 @@ CrashAvoidBehavior::CrashAvoidBehavior(const unsigned int behavior_id,
 {
     sensed_dist_ = DistSensor::INVALID_DISTANCE;
     threshold_dist_ = THRESHOLD_DIST;
+    rotate_direct_ = ROTATE_RIGHT;
 }
 
 CrashAvoidBehavior::~CrashAvoidBehavior()
@@ -17,11 +18,16 @@ CrashAvoidBehavior::~CrashAvoidBehavior()
 void CrashAvoidBehavior::init()
 {
     sensed_dist_ = DistSensor::INVALID_DISTANCE;
+    rotate_direct_ = ROTATE_RIGHT;
 }
 
 void CrashAvoidBehavior::sensing()
 {
-    sensed_dist_ = sensor_->getDistance();
+    sensed_dist_ = sensor_->getFrontDistance();
+
+    int l_dist = sensor_->getLeftSideDistance();
+    int r_dist = sensor_->getRightSideDistance();
+    rotate_direct_ = (l_dist > r_dist) ? ROTATE_LEFT : ROTATE_RIGHT;
 }
 
 void CrashAvoidBehavior::perform()
@@ -30,7 +36,8 @@ void CrashAvoidBehavior::perform()
         return;
 
     double ratio = 1.0 - static_cast<double>(sensed_dist_) / threshold_dist_;
-    action_->rotate(static_cast<int>(90.0 * ratio));
+    int angle =  rotate_direct_ * static_cast<int>(90.0 * ratio);
+    action_->rotate(angle);
 }
 
 bool CrashAvoidBehavior::isActive() const

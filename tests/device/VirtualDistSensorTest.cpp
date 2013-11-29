@@ -30,22 +30,26 @@ TEST_GROUP(VirtualDistSensor)
 
 TEST(VirtualDistSensor, Init)
 {
-    LONGS_EQUAL(VirtualDistSensor::INVALID_DISTANCE, sensor->getDistance());
+    LONGS_EQUAL(VirtualDistSensor::INVALID_DISTANCE, sensor->getFrontDistance());
 }
 
 TEST(VirtualDistSensor, Step)
 {
     // Robot初期化
     robotPtr->setPosition(50, 100);
-    robotPtr->setAngle(1.0);
+    robotPtr->setAngle(0);
 
     // MockWorldを設定
-    worldPtr->setExpectionOfGetDistance(50, 100, 1.0);
+    worldPtr->setExpectionOfGetDistance(50, 100,  0);
+    worldPtr->setExpectionOfGetDistance(50, 100, 90);
+    worldPtr->setExpectionOfGetDistance(50, 100,-90);
     worldPtr->setDummyDistance(150);
 
     // 処理を実行
     sensor->step();
     mock().checkExpectations();
 
-    LONGS_EQUAL(150, sensor->getDistance());
+    LONGS_EQUAL(150, sensor->getFrontDistance());
+    LONGS_EQUAL(150, sensor->getLeftSideDistance());
+    LONGS_EQUAL(150, sensor->getRightSideDistance());
 }

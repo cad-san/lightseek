@@ -20,7 +20,6 @@ TEST_GROUP(CrashAvoidBehavior)
         sensor = boost::make_shared<MockDistSensor>();
         behavior = new CrashAvoidBehavior(dummy_id, sensor, action);
 
-        sensor->init();
         behavior->init();
     }
 
@@ -38,29 +37,27 @@ TEST(CrashAvoidBehavior, Init)
 
 TEST(CrashAvoidBehavior, ActiveAfterSensing)
 {
-    sensor->setDummyDistance(0);
-    sensor->step();
+    sensor->setExpectDistance(0, 100, 100);
 
     behavior->sensing();
 
     CHECK_EQUAL(true, behavior->isActive());
+    mock().checkExpectations();
 }
 
 TEST(CrashAvoidBehavior, NotActiveAfterSensing)
 {
-    sensor->setDummyDistance(50);
-    sensor->step();
+    sensor->setExpectDistance(50, 100, 100);
 
     behavior->sensing();
 
     CHECK_EQUAL(false, behavior->isActive());
+    mock().checkExpectations();
 }
 
 TEST(CrashAvoidBehavior, Perform)
 {
-    sensor->setDummyDistance(0);
-    sensor->step();
-
+    sensor->setExpectDistance(0, 100, 100);
     action->setExpectionOfRotate(90, true);
 
     behavior->sensing();
@@ -71,9 +68,7 @@ TEST(CrashAvoidBehavior, Perform)
 
 TEST(CrashAvoidBehavior, Turn45Degree)
 {
-    sensor->setDummyDistance(25);
-    sensor->step();
-
+    sensor->setExpectDistance(25, 100, 100);
     action->setExpectionOfRotate(45, true);
 
     behavior->sensing();
@@ -86,12 +81,34 @@ TEST(CrashAvoidBehavior, ChangeThreshold)
 {
     behavior->setThreshold(100);
 
-    sensor->setDummyDistance(50);
-    sensor->step();
-    behavior->sensing();
-    CHECK_EQUAL(true, behavior->isActive());
-
+    sensor->setExpectDistance(50, 100, 100);
     action->setExpectionOfRotate(45, true);
+
+    behavior->sensing();
     behavior->perform();
+
+    CHECK_EQUAL(true, behavior->isActive());
+    mock().checkExpectations();
+}
+
+TEST(CrashAvoidBehavior, TurnRight)
+{
+    sensor->setExpectDistance(0, 100, 99);
+    action->setExpectionOfRotate(-90, true);
+
+    behavior->sensing();
+    behavior->perform();
+
+    mock().checkExpectations();
+}
+
+TEST(CrashAvoidBehavior, TurnLeft)
+{
+    sensor->setExpectDistance(0, 99, 100);
+    action->setExpectionOfRotate(+90, true);
+
+    behavior->sensing();
+    behavior->perform();
+
     mock().checkExpectations();
 }

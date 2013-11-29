@@ -20,7 +20,6 @@ TEST_GROUP(GoStraightBehavior)
         sensor = boost::make_shared<MockDistSensor>();
         behavior = new GoStraightBehavior(dummy_id, sensor, action);
 
-        sensor->init();
         behavior->init();
     }
 
@@ -38,8 +37,7 @@ TEST(GoStraightBehavior, Init)
 
 TEST(GoStraightBehavior, ActiveAfterSensing)
 {
-    sensor->setDummyDistance(25);
-    sensor->step();
+    sensor->setExpectionOfGetFrontDist(25);
 
     behavior->sensing();
 
@@ -48,8 +46,7 @@ TEST(GoStraightBehavior, ActiveAfterSensing)
 
 TEST(GoStraightBehavior, NotActiveAfterSensing)
 {
-    sensor->setDummyDistance(24);
-    sensor->step();
+    sensor->setExpectionOfGetFrontDist(24);
 
     behavior->sensing();
 
@@ -58,9 +55,7 @@ TEST(GoStraightBehavior, NotActiveAfterSensing)
 
 TEST(GoStraightBehavior, Perform)
 {
-    sensor->setDummyDistance(75);
-    sensor->step();
-
+    sensor->setExpectionOfGetFrontDist(75);
     action->setExpectionOfMoveFront(25, true);
 
     behavior->sensing();
@@ -73,13 +68,12 @@ TEST(GoStraightBehavior, ChangeThreshold)
 {
     behavior->setThreshold(50);
 
-    sensor->setDummyDistance(100);
-    sensor->step();
+    sensor->setExpectionOfGetFrontDist(100);
+    action->setExpectionOfMoveFront(25, true);
 
     behavior->sensing();
-    CHECK_EQUAL(true, behavior->isActive());
-
-    action->setExpectionOfMoveFront(25, true);
     behavior->perform();
+
+    CHECK_EQUAL(true, behavior->isActive());
     mock().checkExpectations();
 }

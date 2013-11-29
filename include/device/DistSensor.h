@@ -10,7 +10,9 @@ public:
 
     DistSensor() {}
     virtual ~DistSensor() {}
-    virtual int getDistance() const = 0;
+    virtual int getFrontDistance() const = 0;
+    virtual int getLeftSideDistance() const = 0;
+    virtual int getRightSideDistance() const = 0;
 };
 
 typedef boost::shared_ptr<DistSensor> DistSensorPtr;
