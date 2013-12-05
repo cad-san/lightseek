@@ -20,6 +20,22 @@ public:
     type y() const;
 
     type length(void) const;
+
+    template <typename ret_type> ret_type x() const
+    {
+        return static_cast<ret_type>( x() );
+    }
+
+    template <typename ret_type> ret_type y() const
+    {
+        return static_cast<ret_type>( y() );
+    }
+
+    template <typename ret_type> ret_type length(void) const
+    {
+        return static_cast<ret_type>( length() );
+    }
+
 };
 
 class Line
