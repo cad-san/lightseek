@@ -103,8 +103,8 @@ bool Robot::moveFront(const int distance)
     if(!world_->isValidPosition(next))
         return false;
 
-    this->x_ = static_cast<int>(next.x());
-    this->y_ = static_cast<int>(next.y());
+    this->x_ = next.x<int>();
+    this->y_ = next.y<int>();
 
     return true;
 }

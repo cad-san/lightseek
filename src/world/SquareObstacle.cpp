@@ -20,7 +20,7 @@ bool SquareObstacle::isInArea(int x, int y) const
 
 bool SquareObstacle::isInArea(const Geo::Point& p) const
 {
-    return isInArea( static_cast<int>(p.x()), static_cast<int>(p.y()) );
+    return isInArea( p.x<int>(), p.y<int>() );
 }
 
 bool SquareObstacle::isInArea(const Obstacle& obstacle) const
