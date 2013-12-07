@@ -135,7 +135,7 @@ bool World::isValidPosition(int x, int y) const
 
 bool World::isValidPosition(const Geo::Point& p) const
 {
-    return isValidPosition( static_cast<int>(p.x()), static_cast<int>(p.y()) );
+    return isValidPosition( p.x<int>(), p.y<int>() );
 }
 
 void World::getDimension(int* w, int* h) const
@@ -149,5 +149,5 @@ void World::getDimension(int* w, int* h) const
 
 int World::getMaxLength() const
 {
-    return static_cast<int>( Geo::Point(width_, height_).length() );
+    return Geo::Point(width_, height_).length<int>();
 }
