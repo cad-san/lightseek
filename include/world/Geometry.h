@@ -55,6 +55,11 @@ public:
 
     type length(void) const;
     type angle(void) const;
+
+    template <typename ret_type> ret_type length(void) const
+    {
+        return static_cast<ret_type>( length() );
+    }
 };
 
 Point polar(const type& rho, const type& theta);

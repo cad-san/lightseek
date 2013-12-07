@@ -39,6 +39,7 @@ TEST(Geometry, LengthFromOrigin)
 
     LONGS_EQUAL(500, Geo::length(point));
     LONGS_EQUAL(500, point.length());
+    LONGS_EQUAL(500, point.length<int>());
 }
 
 TEST(Geometry, LineLength)
@@ -48,6 +49,13 @@ TEST(Geometry, LineLength)
 
     LONGS_EQUAL(500, line1.length());
     LONGS_EQUAL(500, line2.length());
+}
+
+TEST(Geometry, CastedLineLength)
+{
+    Geo::Line line(100, 100, 400, 500);
+
+    LONGS_EQUAL(500, line.length<int>());
 }
 
 TEST(Geometry, LineAngle)
