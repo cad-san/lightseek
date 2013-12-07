@@ -9,9 +9,10 @@ class Robot
 private:
     typedef boost::mutex::scoped_lock lock;
 
-    int x_;
-    int y_;
+    Geo::Point position_;
     int angle_;
+    Geo::Point init_position_;
+    int init_angle_;
 
     int radius_;
     WorldPtr world_;
@@ -28,6 +29,9 @@ public:
     int getFrontDistance() const;
     int getLeftSideDistance() const;
     int getRightSideDistance() const;
+
+    bool setInitPosition(const int& x, const int& y);
+    bool setInitAngle(const int& angle);
 
     bool setPosition(const int& x, const int& y);
     bool setAngle(const int& angle);

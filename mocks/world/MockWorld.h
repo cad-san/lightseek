@@ -10,7 +10,7 @@ private:
     int dummy_dist_;
 
 public:
-    MockWorld()
+    MockWorld() : World()
     {
         this->dummy_dist_ = INVALID_DISTANCE;
     }

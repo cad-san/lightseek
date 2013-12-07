@@ -22,35 +22,46 @@ TEST_GROUP(Robot)
         mock().clear();
         delete robot;
     }
+
+    void ROBOT_POSITIONS_EQUAL(const Robot* robot, const int x, const int y, const int angle)
+    {
+        int actual_x, actual_y, actual_angle;
+        robot->getPosition(&actual_x, &actual_y);
+        robot->getAngle(&actual_angle);
+
+        LONGS_EQUAL(x, actual_x);
+        LONGS_EQUAL(y, actual_y);
+        LONGS_EQUAL(angle, actual_angle);
+    }
 };
 
 TEST(Robot, Init)
 {
-    int x, y;
-    int angle;
-
-    robot->getPosition(&x,&y);
-    LONGS_EQUAL(World::INVALID_COORD, x);
-    LONGS_EQUAL(World::INVALID_COORD, y);
-
-    robot->getAngle(&angle);
-    LONGS_EQUAL(0, angle);
+    ROBOT_POSITIONS_EQUAL(robot,
+                          World::INVALID_COORD,
+                          World::INVALID_COORD, 0);
 }
 
 TEST(Robot, SetPosition)
 {
-    int x, y;
-    int angle;
-
     robot->setPosition(50, 100);
     robot->setAngle(90);
 
-    robot->getPosition(&x,&y);
-    LONGS_EQUAL( 50, x);
-    LONGS_EQUAL(100, y);
+    ROBOT_POSITIONS_EQUAL(robot, 50, 100, 90);
+}
 
-    robot->getAngle(&angle);
-    LONGS_EQUAL(90, angle);
+TEST(Robot, SetInitPosition)
+{
+    robot->setInitPosition(50, 100);
+    robot->setInitAngle(90);
+
+    robot->setPosition(100, 200);
+    robot->setAngle(180);
+
+    robot->init();
+
+    ROBOT_POSITIONS_EQUAL(robot, 50, 100, 90);
+
 }
 
 TEST(Robot, GetFrontDistance)
@@ -91,38 +102,33 @@ TEST(Robot, GetRightSideDistance)
 
 TEST(Robot, MoveFront)
 {
-    int x, y;
-    int angle;
-
     robot->setPosition(50, 100);
     robot->setAngle(0);
 
     robot->moveFront(50);
 
-    robot->getPosition(&x,&y);
-    LONGS_EQUAL(100, x);
-    LONGS_EQUAL(100, y);
+    ROBOT_POSITIONS_EQUAL(robot, 100, 100, 0);
+}
 
-    robot->getAngle(&angle);
-    LONGS_EQUAL(0, angle);
+TEST(Robot, MoveFrontFailure)
+{
+    robot->setPosition(0, 0);
+    robot->setAngle(180);
+
+    bool result = robot->moveFront(50);
+
+    CHECK_EQUAL(false, result);
+    ROBOT_POSITIONS_EQUAL(robot, 0, 0, 180);
 }
 
 TEST(Robot, Rotate)
 {
-    int x, y;
-    int angle;
-
     robot->setPosition(50, 100);
     robot->setAngle(0);
 
     robot->rotate(90);
 
-    robot->getPosition(&x,&y);
-    LONGS_EQUAL( 50, x);
-    LONGS_EQUAL(100, y);
-
-    robot->getAngle(&angle);
-    LONGS_EQUAL(90, angle);
+    ROBOT_POSITIONS_EQUAL(robot, 50, 100, 90);
 }
 
 TEST(Robot, ChangeSize)
