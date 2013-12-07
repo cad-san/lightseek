@@ -110,6 +110,17 @@ TEST(Robot, MoveFront)
     ROBOT_POSITIONS_EQUAL(robot, 100, 100, 0);
 }
 
+TEST(Robot, MoveFrontFailure)
+{
+    robot->setPosition(0, 0);
+    robot->setAngle(180);
+
+    bool result = robot->moveFront(50);
+
+    CHECK_EQUAL(false, result);
+    ROBOT_POSITIONS_EQUAL(robot, 0, 0, 180);
+}
+
 TEST(Robot, Rotate)
 {
     robot->setPosition(50, 100);
