@@ -3,21 +3,19 @@
 
 static const int DEFAULT_RADIUS = 15;
 
-Robot::Robot(const WorldPtr& world_ptr) : world_(world_ptr)
+Robot::Robot(const WorldPtr& world_ptr)
+    : position_(World::INVALID_COORD, World::INVALID_COORD)
+    , world_(world_ptr)
 {
-    this->x_ = World::INVALID_COORD;
-    this->y_ = World::INVALID_COORD;
     this->angle_ = 0;
-
     this->radius_ = DEFAULT_RADIUS;
 }
 
-Robot::Robot(const WorldPtr& world_ptr, int radius) : world_(world_ptr)
+Robot::Robot(const WorldPtr& world_ptr, int radius)
+    : position_(World::INVALID_COORD, World::INVALID_COORD)
+    , world_(world_ptr)
 {
-    this->x_ = World::INVALID_COORD;
-    this->y_ = World::INVALID_COORD;
     this->angle_ = 0;
-
     this->radius_ = radius;
 }
 
@@ -32,19 +30,22 @@ void Robot::init()
 int Robot::getFrontDistance() const
 {
     lock lk(sync_mutex_);
-    return world_->getDistance(x_, y_, angle_);
+    return world_->getDistance(position_.x<int>(),
+                               position_.y<int>(), angle_);
 }
 
 int Robot::getRightSideDistance() const
 {
     lock lk(sync_mutex_);
-    return world_->getDistance(x_, y_, angle_ + 90);
+    return world_->getDistance(position_.x<int>(),
+                               position_.y<int>(), angle_ + 90);
 }
 
 int Robot::getLeftSideDistance() const
 {
     lock lk(sync_mutex_);
-    return world_->getDistance(x_, y_, angle_ - 90);
+    return world_->getDistance(position_.x<int>(),
+                               position_.y<int>(), angle_ - 90);
 }
 
 void Robot::getPosition(int* x, int* y) const
@@ -53,8 +54,8 @@ void Robot::getPosition(int* x, int* y) const
         return;
 
     lock lk(sync_mutex_);
-    *x = this->x_;
-    *y = this->y_;
+    *x = this->position_.x<int>();
+    *y = this->position_.y<int>();
 }
 
 void Robot::getAngle(int* angle) const
@@ -77,8 +78,7 @@ bool Robot::setPosition(const int& x, const int& y)
 {
     lock lk(sync_mutex_);
 
-    this->x_ = x;
-    this->y_ = y;
+    this->position_ = Geo::Point(x, y);
 
     return true;
 }
@@ -97,14 +97,12 @@ bool Robot::moveFront(const int distance)
     lock lk(sync_mutex_);
 
     double radian = Geo::convert_radian(angle_);
-    Geo::Point curr(x_, y_);
-    Geo::Point next = curr + Geo::polar(distance, radian);
+    Geo::Point next = position_ + Geo::polar(distance, radian);
 
     if(!world_->isValidPosition(next))
         return false;
 
-    this->x_ = next.x<int>();
-    this->y_ = next.y<int>();
+    position_ = next;
 
     return true;
 }

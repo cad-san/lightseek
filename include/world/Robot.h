@@ -9,8 +9,7 @@ class Robot
 private:
     typedef boost::mutex::scoped_lock lock;
 
-    int x_;
-    int y_;
+    Geo::Point position_;
     int angle_;
 
     int radius_;
