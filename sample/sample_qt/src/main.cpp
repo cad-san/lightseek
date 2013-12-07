@@ -30,8 +30,8 @@ static WorldPtr createWorld()
 static RobotPtr createRobot(WorldPtr world)
 {
     RobotPtr robot = boost::make_shared<Robot>(world);
-    robot->setPosition(250,250);
-    robot->setAngle(0);
+    robot->setInitPosition(250,250);
+    robot->setInitAngle(0);
     return robot;
 }
 
@@ -77,6 +77,7 @@ int main(int argc, char* argv[])
     // 初期化
     env->init();
     agent->init();
+    robot->init();
 
     QApplication app(argc, argv);
     MainWindow window;
