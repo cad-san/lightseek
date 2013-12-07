@@ -38,6 +38,12 @@ TEST(Geometry, DefaultLine)
     POINT_EQUAL(p_zero, l_init.e());
 }
 
+TEST(Geometry, DegreeRadianConversion)
+{
+    DOUBLES_EQUAL( Geo::PI / 4, Geo::convert_radian(45), EPS);
+    DOUBLES_EQUAL( 45, Geo::convert_degree(Geo::PI / 4), EPS);
+}
+
 TEST(Geometry, Distance)
 {
     Geo::Point a(100, 100);
