@@ -50,6 +50,20 @@ TEST(Robot, SetPosition)
     ROBOT_POSITIONS_EQUAL(robot, 50, 100, 90);
 }
 
+TEST(Robot, SetInitPosition)
+{
+    robot->setInitPosition(50, 100);
+    robot->setInitAngle(90);
+
+    robot->setPosition(100, 200);
+    robot->setAngle(180);
+
+    robot->init();
+
+    ROBOT_POSITIONS_EQUAL(robot, 50, 100, 90);
+
+}
+
 TEST(Robot, GetFrontDistance)
 {
     robot->setPosition(50, 100);

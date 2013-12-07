@@ -5,17 +5,21 @@ static const int DEFAULT_RADIUS = 15;
 
 Robot::Robot(const WorldPtr& world_ptr)
     : position_(World::INVALID_COORD, World::INVALID_COORD)
+    , init_position_(World::INVALID_COORD, World::INVALID_COORD)
     , world_(world_ptr)
 {
     this->angle_ = 0;
+    this->init_angle_ = 0;
     this->radius_ = DEFAULT_RADIUS;
 }
 
 Robot::Robot(const WorldPtr& world_ptr, int radius)
     : position_(World::INVALID_COORD, World::INVALID_COORD)
+    , init_position_(World::INVALID_COORD, World::INVALID_COORD)
     , world_(world_ptr)
 {
     this->angle_ = 0;
+    this->init_angle_ = 0;
     this->radius_ = radius;
 }
 
@@ -25,6 +29,9 @@ Robot::~Robot()
 
 void Robot::init()
 {
+    lock lk(sync_mutex_);
+    this->position_ = this->init_position_;
+    this->angle_ = this->init_angle_;
 }
 
 int Robot::getFrontDistance() const
@@ -74,21 +81,30 @@ void Robot::getSize(int* radius) const
     *radius = this->radius_;
 }
 
+bool Robot::setInitPosition(const int& x, const int& y)
+{
+    lock lk(sync_mutex_);
+    this->init_position_ = Geo::Point(x, y);
+    return true;
+}
+
+bool Robot::setInitAngle(const int& angle)
+{
+    lock lk(sync_mutex_);
+    this->init_angle_ = angle;
+    return true;
+}
 bool Robot::setPosition(const int& x, const int& y)
 {
     lock lk(sync_mutex_);
-
     this->position_ = Geo::Point(x, y);
-
     return true;
 }
 
 bool Robot::setAngle(const int& angle)
 {
     lock lk(sync_mutex_);
-
     this->angle_ = angle;
-
     return true;
 }
 
