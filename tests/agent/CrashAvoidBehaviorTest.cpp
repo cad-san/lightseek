@@ -47,7 +47,7 @@ TEST(CrashAvoidBehavior, ActiveAfterSensing)
 
 TEST(CrashAvoidBehavior, NotActiveAfterSensing)
 {
-    sensor->setExpectDistance(50, 100, 100);
+    sensor->setExpectionOfGetFrontDist(50);
 
     behavior->sensing();
 
