@@ -23,11 +23,12 @@ void CrashAvoidBehavior::init()
 
 void CrashAvoidBehavior::sensing()
 {
+    bool prev_state = isActive();
     sensed_dist_ = sensor_->getFrontDistance();
+    bool next_state = isActive();
 
-    int l_dist = sensor_->getLeftSideDistance();
-    int r_dist = sensor_->getRightSideDistance();
-    rotate_direct_ = (l_dist > r_dist) ? ROTATE_LEFT : ROTATE_RIGHT;
+    if(!prev_state && next_state)
+        rotate_direct_ = calcRotateDirection();
 }
 
 void CrashAvoidBehavior::perform()
@@ -48,4 +49,12 @@ bool CrashAvoidBehavior::isActive() const
 void CrashAvoidBehavior::setThreshold(int distance)
 {
     threshold_dist_ = distance;
+}
+
+CrashAvoidBehavior::RotateDirect
+CrashAvoidBehavior::calcRotateDirection(void) const
+{
+    int l_dist = sensor_->getLeftSideDistance();
+    int r_dist = sensor_->getRightSideDistance();
+    return (l_dist > r_dist) ? ROTATE_LEFT : ROTATE_RIGHT;
 }

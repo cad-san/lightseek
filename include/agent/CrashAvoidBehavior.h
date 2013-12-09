@@ -20,6 +20,9 @@ private:
 
     DistSensorPtr sensor_;
     ActionPtr action_;
+
+    RotateDirect calcRotateDirection(void) const;
+
 public:
     CrashAvoidBehavior(const unsigned int behavior_id,
                        const DistSensorPtr& sensor_ptr, const ActionPtr& action_ptr);
