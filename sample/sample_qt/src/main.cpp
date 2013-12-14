@@ -9,7 +9,7 @@
 #include "VirtualAction.h"
 #include "VirtualDistSensor.h"
 
-#include "Agent.h"
+#include "ThreadedAgent.h"
 #include "Behavior.h"
 #include "CrashAvoidBehavior.h"
 #include "GoStraightBehavior.h"
@@ -45,14 +45,14 @@ static DistSensorPtr createDistSensor(RobotPtr robot)
     return boost::make_shared<VirtualDistSensor>(robot);
 }
 
-static AgentPtr createAgent(DistSensorPtr dist, ActionPtr action)
+static ThreadedAgentPtr createAgent(DistSensorPtr dist, ActionPtr action)
 {
     boost::shared_ptr<Agent> agent = boost::make_shared<Agent>();
 
     agent->addBehavior(boost::make_shared<GoStraightBehavior>(0x01, dist, action));
     agent->addBehavior(boost::make_shared<CrashAvoidBehavior>(0x02, dist, action));
 
-    return boost::make_shared<Thread>(agent);
+    return boost::make_shared<ThreadedAgent>(agent);
 }
 
 static EnvironmentPtr createEnvironment(DistSensorPtr sensor)
@@ -69,10 +69,10 @@ int main(int argc, char* argv[])
     RobotPtr robot = createRobot(world);
 
     // Agentの作成
-    ActionPtr     action = createAction(robot);
-    DistSensorPtr sensor = createDistSensor(robot);
-    EnvironmentPtr env   = createEnvironment(sensor);
-    AgentPtr       agent = createAgent(sensor, action);
+    ActionPtr        action = createAction(robot);
+    DistSensorPtr    sensor = createDistSensor(robot);
+    EnvironmentPtr   env    = createEnvironment(sensor);
+    ThreadedAgentPtr agent  = createAgent(sensor, action);
 
     // 初期化
     env->init();
