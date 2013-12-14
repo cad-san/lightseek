@@ -102,7 +102,7 @@ void MainWindow::setEnvironment(const EnvironmentPtr& env_ptr)
     env_ = env_ptr;
 }
 
-void MainWindow::setAgent(const AgentPtr& agent_ptr)
+void MainWindow::setAgent(const ThreadedAgentPtr& agent_ptr)
 {
     agent_ = agent_ptr;
 }

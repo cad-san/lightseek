@@ -4,10 +4,7 @@
 #include <QMainWindow>
 #include "WorldWidget.h"
 #include "Environment.h"
-#include "Thread.h"
-
-typedef boost::shared_ptr<Environment> EnvironmentPtr;
-typedef boost::shared_ptr<Thread> AgentPtr;
+#include "ThreadedAgent.h"
 
 class MainWindow : public QMainWindow
 {
@@ -20,7 +17,7 @@ public:
     void setRobotModel(const RobotPtr& robot_ptr);
 
     void setEnvironment(const EnvironmentPtr& env_ptr);
-    void setAgent(const AgentPtr& agent_ptr);
+    void setAgent(const ThreadedAgentPtr& agent_ptr);
 
 private:
     void createWidgets();
@@ -35,7 +32,7 @@ private slots:
 private:
     WorldWidget *world_widget_;
     EnvironmentPtr env_;
-    AgentPtr agent_;
+    ThreadedAgentPtr agent_;
 
     QAction* init_act_;
     QAction* start_act_;
