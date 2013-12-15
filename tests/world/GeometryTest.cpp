@@ -4,12 +4,6 @@
 
 static const double EPS = 1e-5;
 
-void POINT_EQUAL(Geo::Point expect, Geo::Point actual)
-{
-    LONGS_EQUAL(expect.x<int>(), actual.x<int>());
-    LONGS_EQUAL(expect.y<int>(), actual.y<int>());
-}
-
 TEST_GROUP(Geometry)
 {
     void setup()
@@ -18,6 +12,12 @@ TEST_GROUP(Geometry)
 
     void teardown()
     {
+    }
+
+    void POINT_EQUAL(Geo::Point expect, Geo::Point actual)
+    {
+        LONGS_EQUAL(expect.x<int>(), actual.x<int>());
+        LONGS_EQUAL(expect.y<int>(), actual.y<int>());
     }
 };
 
