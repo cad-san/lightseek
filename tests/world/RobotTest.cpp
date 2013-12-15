@@ -23,11 +23,11 @@ TEST_GROUP(Robot)
         delete robot;
     }
 
-    void ROBOT_POSITIONS_EQUAL(const Robot* robot, const int x, const int y, const int angle)
+    void ROBOT_POSITIONS_EQUAL(const Robot* target, const int x, const int y, const int angle)
     {
         int actual_x, actual_y, actual_angle;
-        robot->getPosition(&actual_x, &actual_y);
-        robot->getAngle(&actual_angle);
+        target->getPosition(&actual_x, &actual_y);
+        target->getAngle(&actual_angle);
 
         LONGS_EQUAL(x, actual_x);
         LONGS_EQUAL(y, actual_y);
