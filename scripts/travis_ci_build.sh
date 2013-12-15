@@ -2,7 +2,11 @@
 # build script for Travis CI
 
 if [ "$BUILD_TARGET" = "test" ]; then
-	make gcov || exit 1
+    if [ "$CC" = "gcc" ]; then
+        make gcov || exit 1
+    else
+        make test || exit 1
+    fi
 fi
 
 if [ "$BUILD_TARGET" = "release" ]; then

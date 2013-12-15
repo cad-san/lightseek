@@ -15,7 +15,6 @@ CPPUTEST_CXXFLAGS += -include tests/PreIncludeFiles.h
 CPPUTEST_LDFLAGS += -L$(SUBSUMPTION_DIR)/lib
 LD_LIBRARIES = -lsubsumption -lboost_thread-mt -lboost_system-mt -lm
 
-CPPUTEST_USE_GCOV = Y
 CPPUTEST_USE_EXTENSIONS = Y
 
 include $(CPPUTEST_HOME)/build/MakefileWorker.mk
