@@ -21,8 +21,13 @@ static WorldPtr createWorld()
 {
     WorldPtr world = boost::make_shared<World>(500,500);
 
-    world->addObstacle( boost::make_shared<SquareObstacle>(100, 100, 100, 50) );
-    world->addObstacle( boost::make_shared<SquareObstacle>(200, 400, 100, 50) );
+    world->addObstacle( boost::make_shared<SquareObstacle>(  0,  50, 400, 50) );
+    world->addObstacle( boost::make_shared<SquareObstacle>(  0, 150, 200, 50) );
+    world->addObstacle( boost::make_shared<SquareObstacle>(300, 150, 200, 50) );
+    world->addObstacle( boost::make_shared<SquareObstacle>(100, 250, 400, 50) );
+    world->addObstacle( boost::make_shared<SquareObstacle>(  0, 350, 250, 50) );
+    world->addObstacle( boost::make_shared<SquareObstacle>(350, 350,  50, 50) );
+    world->addObstacle( boost::make_shared<SquareObstacle>(150, 450, 350, 50) );
 
     return world;
 }
@@ -30,7 +35,7 @@ static WorldPtr createWorld()
 static RobotPtr createRobot(WorldPtr world)
 {
     RobotPtr robot = boost::make_shared<Robot>(world);
-    robot->setInitPosition(250,250);
+    robot->setInitPosition(25,25);
     robot->setInitAngle(0);
     return robot;
 }
@@ -49,16 +54,26 @@ static ThreadedAgentPtr createAgent(DistSensorPtr dist, ActionPtr action)
 {
     boost::shared_ptr<Agent> agent = boost::make_shared<Agent>();
 
-    agent->addBehavior(boost::make_shared<GoStraightBehavior>(0x01, dist, action));
-    agent->addBehavior(boost::make_shared<CrashAvoidBehavior>(0x02, dist, action));
+    BehaviorPtr go_straight = boost::make_shared<GoStraightBehavior>(0x01, dist, action);
+    BehaviorPtr crash_avoid = boost::make_shared<CrashAvoidBehavior>(0x02, dist, action);
 
-    return boost::make_shared<ThreadedAgent>(agent);
+    agent->addBehavior(go_straight);
+    agent->addBehavior(crash_avoid);
+
+    ThreadedAgentPtr th_agent = boost::make_shared<ThreadedAgent>(agent);
+    th_agent->setIntervalMiliSec(200);
+
+    return th_agent;
 }
 
 static EnvironmentPtr createEnvironment(DistSensorPtr sensor)
 {
     EnvironmentPtr env = boost::make_shared<Environment>();
-    env->addSensor("distance", boost::make_shared<ThreadedSensor>("distance", sensor));
+
+    ThreadedSensorPtr th_dist = boost::make_shared<ThreadedSensor>("distance", sensor);
+    th_dist->setIntervalMiliSec(100);
+
+    env->addSensor("distance", th_dist);
     return env;
 }
 
