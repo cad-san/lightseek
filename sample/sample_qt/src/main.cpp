@@ -49,16 +49,26 @@ static ThreadedAgentPtr createAgent(DistSensorPtr dist, ActionPtr action)
 {
     boost::shared_ptr<Agent> agent = boost::make_shared<Agent>();
 
-    agent->addBehavior(boost::make_shared<GoStraightBehavior>(0x01, dist, action));
-    agent->addBehavior(boost::make_shared<CrashAvoidBehavior>(0x02, dist, action));
+    BehaviorPtr go_straight = boost::make_shared<GoStraightBehavior>(0x01, dist, action);
+    BehaviorPtr crash_avoid = boost::make_shared<CrashAvoidBehavior>(0x02, dist, action);
 
-    return boost::make_shared<ThreadedAgent>(agent);
+    agent->addBehavior(go_straight);
+    agent->addBehavior(crash_avoid);
+
+    ThreadedAgentPtr th_agent = boost::make_shared<ThreadedAgent>(agent);
+    th_agent->setIntervalMiliSec(200);
+
+    return th_agent;
 }
 
 static EnvironmentPtr createEnvironment(DistSensorPtr sensor)
 {
     EnvironmentPtr env = boost::make_shared<Environment>();
-    env->addSensor("distance", boost::make_shared<ThreadedSensor>("distance", sensor));
+
+    ThreadedSensorPtr th_dist = boost::make_shared<ThreadedSensor>("distance", sensor);
+    th_dist->setIntervalMiliSec(100);
+
+    env->addSensor("distance", th_dist);
     return env;
 }
 
