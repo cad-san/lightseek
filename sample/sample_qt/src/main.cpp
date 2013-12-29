@@ -21,8 +21,13 @@ static WorldPtr createWorld()
 {
     WorldPtr world = boost::make_shared<World>(500,500);
 
-    world->addObstacle( boost::make_shared<SquareObstacle>(100, 100, 100, 50) );
-    world->addObstacle( boost::make_shared<SquareObstacle>(200, 400, 100, 50) );
+    world->addObstacle( boost::make_shared<SquareObstacle>(  0,  50, 400, 50) );
+    world->addObstacle( boost::make_shared<SquareObstacle>(  0, 150, 200, 50) );
+    world->addObstacle( boost::make_shared<SquareObstacle>(300, 150, 200, 50) );
+    world->addObstacle( boost::make_shared<SquareObstacle>(100, 250, 400, 50) );
+    world->addObstacle( boost::make_shared<SquareObstacle>(  0, 350, 250, 50) );
+    world->addObstacle( boost::make_shared<SquareObstacle>(350, 350,  50, 50) );
+    world->addObstacle( boost::make_shared<SquareObstacle>(150, 450, 350, 50) );
 
     return world;
 }
@@ -30,7 +35,7 @@ static WorldPtr createWorld()
 static RobotPtr createRobot(WorldPtr world)
 {
     RobotPtr robot = boost::make_shared<Robot>(world);
-    robot->setInitPosition(250,250);
+    robot->setInitPosition(25,25);
     robot->setInitAngle(0);
     return robot;
 }
